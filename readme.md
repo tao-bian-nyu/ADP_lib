@@ -6,4 +6,4 @@ To run:
 
 make all
 
-./main
+./ADPsolver
