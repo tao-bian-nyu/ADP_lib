@@ -2,8 +2,10 @@ This is ADPlib v1.0 for *nix systems.
 
 To do: online PI method
 
-To run:
+To compile:
 
+Type
 make all
+to build
 
-./ADPsolver
+Type ./ADPsolver to run
