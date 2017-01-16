@@ -1,4 +1,4 @@
-works on *nix systems
+For *nix systems
 
 To run:
 
