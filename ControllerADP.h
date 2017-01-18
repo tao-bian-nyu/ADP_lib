@@ -13,13 +13,15 @@
 //#include "AlgorithmPI.h"
 
 namespace ADP{
+	template <typename T>
 	class ControllerADP: public Controllers
 	{
 		public: 
 			//typedef const std::vector<double> (*noise)(const unsigned int m, const double t);
-			ControllerADP(const unsigned int n, const unsigned int m, const SquareMatrix& Q, const SquareMatrix& R, const SymmetricMatrix& P, Step* stepf, const double delta, const Matrix& K);
-			ControllerADP(const unsigned int n, const unsigned int m, const SquareMatrix& Q, const SquareMatrix& R, const SymmetricMatrix& P, Step* stepf, const double delta);
-			ControllerADP(const unsigned int n, const unsigned int m, const SquareMatrix& Q, const SquareMatrix& R, const double delta, const Matrix& K);
+			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, Step* stepf=nullptr);
+			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf=nullptr);
+			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf=nullptr);
+			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, const Matrix& K, Step* stepf=nullptr);
 			virtual const std::vector<double> input(const std::vector<double>& x, const double dt, const double t=0, noise noif=&sinusoidal);
 			virtual ~ControllerADP(){};
 			void dispAll();
@@ -34,9 +36,9 @@ namespace ADP{
 			//int mm;
 			Matrix mK0;
 			Matrix mKadp;
-			SquareMatrix mQ;
-			SquareMatrix mR;
-			Matrix mP;
+			SymmetricMatrix mQ;
+			SymmetricMatrix mR;
+			SymmetricMatrix mP;
 			double mdelta;
 			std::list<std::vector<double>>::iterator itx;
 			std::list<std::vector<double>>::iterator itxx;
@@ -52,6 +54,8 @@ namespace ADP{
 			//Matrix mIxT;
 			//Matrix mTheta;
 	};
+#include "ControllerADP.cpp"
 }
 
 #endif
+

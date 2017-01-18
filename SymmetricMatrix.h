@@ -9,7 +9,7 @@ namespace ADP
   class SymmetricMatrix: public SquareMatrix
   {
   public:
-    SymmetricMatrix(const int ncol, const double val=0.0): SquareMatrix(ncol, val){};
+    SymmetricMatrix(const int ncol=1, const double val=0.0): SquareMatrix(ncol, val){};
     SymmetricMatrix(const SymmetricMatrix& mat):SquareMatrix(mat){};
     SymmetricMatrix(const Matrix& mat);
     SymmetricMatrix(const std::vector<double> & input);

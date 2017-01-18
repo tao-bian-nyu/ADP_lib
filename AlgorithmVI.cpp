@@ -14,6 +14,12 @@ namespace ADP
 		: mQ(Q), mR(R), mP0(P0), mP(P0), mbound(bound), mk(1),mStep(stepf){}
 
 
+	std::shared_ptr<AlgorithmADP> AlgorithmVI::Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound)
+	{
+		return std::shared_ptr<AlgorithmADP>(new AlgorithmVI(Q,R,P0,stepf,bound));
+	}
+
+
 	std::vector<Matrix> AlgorithmVI::offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N, double eps)
 	{
 		//const int n = sysA.size()[0];

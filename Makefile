@@ -32,13 +32,11 @@ AlgorithmPI.o: AlgorithmPI.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c AlgorithmPI.cpp
 Dynamical.o: Dynamical.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c Dynamical.cpp
-ControllerADP.o: ControllerADP.cpp $(Forall)
-	$(CPP) $(CPPFLAGS) -c ControllerADP.cpp
 Others.o: Others.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c Others.cpp
 
-ADPsolver: Others.o ControllerADP.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
-	$(CPP) $(CPPFLAGS) -o ADPsolver Others.o ControllerADP.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
+ADPsolver: Others.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
+	$(CPP) $(CPPFLAGS) -o ADPsolver Others.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
 
 clean:
 	rm -f *.o

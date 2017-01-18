@@ -18,11 +18,13 @@ namespace ADP
 		public:
 
 			AlgorithmVI(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, Step* stepf, const double bound=10);
+			AlgorithmVI(): mQ(), mR(), mP0(), mP(), mbound(0), mk(1), mStep(nullptr){};
 			//AlgorithmVI(): mP0(0), mbound(0), mResult({0, 0, 0}){};
 			virtual std::vector<Matrix> offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N=20000, const double eps=0.001);
 			//virtual void offline(const SquareMatrix& sysA, const Matrix& sysB, const SquareMatrix& Q, const SquareMatrix& R, double eps=0.001);
 			virtual std::vector<Matrix> onlineB(const std::vector<double>&  state, const std::vector<double>& input);
 			virtual std::vector<Matrix> onlineI(const std::vector<double>&  vec);
+			virtual std::shared_ptr<AlgorithmADP> Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound=10);
 			virtual void resetStep();
 			//virtual void online(const std::vector<double>&  state, const std::vector<double>& input){};
 			virtual ~AlgorithmVI(){};

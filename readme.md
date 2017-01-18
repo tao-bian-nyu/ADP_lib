@@ -1,11 +1,58 @@
-This is ADPlib v1.0 for *nix systems.
+ADPlib - A C++ library supporting the implementation of various ADP algorithms for users and developers from different background.
+------------------------------------------------
 
-To do: online PI method
+This library contains numerical adaptive dynamic programming (ADP) algorithms to solve linear quadratic regulator (LQR) problems and algebraic Riccati equations (ARE). ADP aims at finding a stabilizing optimal control policy for dynamical systems via online learning. The aim of this project is to provide a complete implementation for online and offline ADP solvers that can be easily applied in the controller design for dynamical systems.
 
-To compile:
+Learn more about LQR at: https://en.wikipedia.org/wiki/Linear–quadratic_regulator
 
-Type
+Learn more about ARE at: https://en.wikipedia.org/wiki/Algebraic_Riccati_equation
+
+Please visit my ResearchGate for more details about ADP: https://www.researchgate.net/profile/Tao_Bian2
+
+features
+-----------------
+
+#### value iteration (VI) and policy iteration (PI) for continuous-time linear time invariant systems:
+
+```c++
+ALgorithmADP.h
+```
+
+#### VI and PI based ADP algorithms for continuous-time linear time invariant systems
+
+```c++
+ControllerADP.h
+```
+
+#### Different matrix classes and operations
+
+```c++
+Matrix.h
+SquareMatrix.h
+SymmetricMatrix.h
+Diagonal.h
+MatrixCalc.h
+```
+
+#### Linear dynamical systems
+
+```c++
+Dynamical.h
+```
+
+How to use:
+-----------------
+A demo is provided in
+```c++
+main.h
+```
+#### Instruction for \*nix systems:
+```bash
 make all
-to build
-
-Type ./ADPsolver to run
+./ADPsolver
+```
+Future work:
+-----------------
+1. discrete-time ADP
+2. multi-thread implementation
+3. nonlinear ADP
