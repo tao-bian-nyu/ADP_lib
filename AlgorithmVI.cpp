@@ -59,23 +59,15 @@ namespace ADP
 
 	std::vector<Matrix> AlgorithmVI::onlineI(const std::vector<double>&  vec)
 	{
-		std::cout << "VI loop " << mk << std::endl;
-		//const double step = 1/(mk+100.0);
-		//const double step = Step(mk);
+		//std::cout << "VI loop " << mk << std::endl;
 		const double step = mStep->stepOut(mk++);
 		const unsigned int n = mQ.size()[0];
-		//const int m = R.size()[0];
 		auto first = vec.begin();
 		const auto last = vec.begin()+n*(n+1)/2;
 		const std::vector<double> vecH(first,last);
-		//first = last;
 		first = vec.end();
 		const std::vector<double> vecK(last,first);
-		//SymmetricMatrix H(vecH);
-		//H.disp();
 		const Matrix K(vecK,n);
-		//K.disp();
-		//mResult[1] = mResult[1] + eps*(H+Q-t(K)*R*K);
 		SymmetricMatrix error(SymmetricMatrix(vecH)+mQ-t(K)*mR*K);
 		//std::cout << step << std::endl;
 		mP = mP + step * error;
@@ -94,10 +86,10 @@ namespace ADP
 	}
 
 
-	std::vector<Matrix> AlgorithmVI::onlineB(const std::vector<double>&  state, const std::vector<double>& input)
-	{
-		return mResult;
-	}
+	//std::vector<Matrix> AlgorithmVI::onlineB(const std::vector<double>&  state, const std::vector<double>& input)
+	//{
+		//return mResult;
+	//}
 
 
 	void AlgorithmVI::resetStep()
@@ -105,9 +97,20 @@ namespace ADP
 		mk=1;
 	}
 
-	//void AlgorithmVI::offline(const SquareMatrix& sysA, const Matrix& sysB, const SquareMatrix& Q, const SquareMatrix& R, double eps)
-	//{
-	//mResult = offline(const SquareMatrix& sysA, const Matrix& sysB, const SquareMatrix& Q, const SquareMatrix& R, double eps);
-	//}
+	std::vector<Matrix> AlgorithmVI::online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV)
+	{
+		std::vector<double> phi;
+		phi.reserve(vec1.size() + vec2.size());
+		phi = vec1;
+		phi.insert(phi.end(), vec2.begin(), vec2.end());
+
+		*mBigr= *mBigr + prod(phi,vec0);// half online case;
+		mThetaInv = mThetaInv - 1 / (1 + double(t(phi)*mThetaInv*phi)) * mThetaInv * phi * t(mThetaInv * phi);
+		mBigV = mBigV + (vec0*vec(mP) - mBigV * phi)* (vec(mThetaInv * phi));
+
+		onlineI(mBigV);
+		//mBigV = vec(mThetaInv * *mBigr * vec(mP));
+		return mResult;
+	}	
 
 }

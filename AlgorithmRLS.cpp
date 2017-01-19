@@ -26,9 +26,9 @@ namespace ADP
 		{
 			mP = mP - 1 / (1 + double(t(Phi.col(i))*mP*Phi.col(i))) * mP * Phi.col(i) * t(mP * Phi.col(i));
 			//g = vec(mP * Phi.col(i));
-			double alpha = d[i-1] - mW * Phi.col(i);
+			//double alpha = d[i-1] - mW * Phi.col(i);
 			//mW = mW + g * alpha;
-			mW = mW + alpha * vec(mP * Phi.col(i));
+			mW = mW + (d[i-1] - mW * Phi.col(i)) * vec(mP * Phi.col(i));
 		}
 
 	}

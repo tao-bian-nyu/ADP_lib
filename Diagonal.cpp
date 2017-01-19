@@ -14,11 +14,7 @@ namespace ADP
 
 	}
 
-	//Diagonal::Diagonal(const Diagonal& mat)
-	//:SymmetricMatrix(mat)
-	//{
-	//}
-	
+
 	Diagonal::Diagonal(const Matrix& mat)
 	:SymmetricMatrix((SquareMatrix(mat)).diag())
 	{}

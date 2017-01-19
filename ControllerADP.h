@@ -43,12 +43,12 @@ namespace ADP{
 			std::list<std::vector<double>>::iterator itx;
 			std::list<std::vector<double>>::iterator itxx;
 			std::list<std::vector<double>>::iterator itxu;
-			Matrix mThetaInv;
+			SymmetricMatrix mThetaInv;
 			std::vector<double> mBigV;
 			std::shared_ptr<Matrix> mBigTheta;
 			std::shared_ptr<Matrix> mBigr;
 			std::shared_ptr<AlgorithmADP> mADPalg;
-			void LS(const std::vector<double>& phi, const double d);
+			//void LS(const std::vector<double>& phi, const double d);
 			//Matrix mxT;
 			//Matrix muT;
 			//Matrix mIxT;
