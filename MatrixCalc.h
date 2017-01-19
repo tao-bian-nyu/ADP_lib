@@ -14,6 +14,7 @@ namespace ADP
 	const std::vector<double> operator+(const std::vector<double>& lhs_vec, const double rhs_num);
 	const std::vector<double> operator-(const std::vector<double>& lhs_vec, const double rhs_num);
 	const std::vector<double> operator*(const std::vector<double>& lhs_vec, const double rhs_num);
+	const std::vector<double> operator/(const std::vector<double>& lhs_vec, const double rhs_num);
 	const std::vector<double> operator+(const double lhs_num, const std::vector<double>& rhs_vec);
 	const std::vector<double> operator-(const double lhs_num, const std::vector<double>& rhs_vec);
 	const std::vector<double> operator*(const double lhs_num, const std::vector<double>& rhs_vec);

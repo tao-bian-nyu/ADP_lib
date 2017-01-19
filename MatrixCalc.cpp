@@ -110,6 +110,13 @@ namespace ADP
 		return vecOut;
 	}
 
+	const std::vector<double> operator/(const std::vector<double>& lhs_vec, const double rhs_num)
+	{
+		std::vector<double> vecOut(lhs_vec);
+		transform(vecOut.begin(), vecOut.end(), vecOut.begin(), [=](double i){return i/rhs_num;});
+		return vecOut;
+	}
+
 	const std::vector<double> operator+(const double lhs_num, const std::vector<double>& rhs_vec)
 	{
 		return rhs_vec + lhs_num;

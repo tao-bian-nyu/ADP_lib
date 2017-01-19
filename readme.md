@@ -9,7 +9,7 @@ Learn more about ARE at: https://en.wikipedia.org/wiki/Algebraic_Riccati_equatio
 
 Please visit my ResearchGate for more details about ADP: https://www.researchgate.net/profile/Tao_Bian2
 
-features
+Features
 -----------------
 
 #### value iteration (VI) and policy iteration (PI) for continuous-time linear time invariant systems:

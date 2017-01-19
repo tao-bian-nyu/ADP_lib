@@ -33,7 +33,7 @@ namespace ADP
 			error = t(sysA) * mP + mP * sysA + mQ - mP * sysB * inv(mR) * t(sysB) * mP;
 			//Matrix tempP = P + step * error;
 			mP = mP + step * error;
-			if(mP.F() > mbound || !(mP.F()>0))
+			if(mP.F() > mbound || !(mP>0))
 			{
 				mbound += 100;
 				mP=mP0;

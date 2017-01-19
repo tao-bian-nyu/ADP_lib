@@ -65,7 +65,11 @@
 const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
 {	
 
-	//std::cout <<t <<std::endl;
+	if (dt<1e-20) 
+		return noif(mR.size()[0],t);
+
+
+
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vecs(prod(x,x)));
@@ -136,7 +140,7 @@ const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<do
 		//double err= optResult[0].F();
 		mP = optResult[1];
 		mKadp= optResult[2];
-		//disp(mP);
+		disp(mP);
 		//mBigV = vec(mThetaInv * *mBigr * vec(mP));
 
 		//std::cout << "the error is " << err << std::endl;
