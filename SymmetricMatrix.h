@@ -13,10 +13,9 @@ namespace ADP
     SymmetricMatrix(const SymmetricMatrix& mat):SquareMatrix(mat){};
     SymmetricMatrix(const Matrix& mat);
     SymmetricMatrix(const std::vector<double> & input);
-    const bool operator>(const double input);
-    const std::vector<double> vecs() const;
-    //virtual const int size() const;
-    //virtual const SymmetricMatrix& operator=(const SymmetricMatrix& mat);
+    const bool operator>(const double input);                                                     // check symmetric positive definite matrix
+    const std::vector<double> vecs() const;                                                       // convert lower triangle into a vector
+    virtual ~SymmetricMatrix(){};
 
   private:
     const int symget_dim(const std::vector<double> & input) const;

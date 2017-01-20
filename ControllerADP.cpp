@@ -68,49 +68,28 @@ const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<do
 	if (dt<1e-20) 
 		return noif(mR.size()[0],t);
 
-
-
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vecs(prod(x,x)));
 		++itx;
-	}else {
-		mxx.push_back(vecs(prod(x,x)));
-	}
+	}else mxx.push_back(vecs(prod(x,x)));
+
 
 	if(mIxx.size()==0) 
 	{
 		mIxx.push_back(-dt*vec(kProd(x,x)));
-		//std::cout << "test post" << std::endl;
 		++itxx;
 	}
-	else {
-		//std::vector<double> tem(mIxx.back()+dt*vecs(prod(x,x)));
-		//mIxx.push_back(tem);
-		mIxx.push_back(mIxx.back()-dt*vec(kProd(x,x)));
-	}
+	else mIxx.push_back(mIxx.back()-dt*vec(kProd(x,x)));
 
-
-	//Matrix matOut(mK0 * x);
-	//std::vector<double> u(mR.size()[0],sin(t));
-	//noise noif=&sinusoidal;
 	std::vector<double> u = noif(mR.size()[0],t);
-	//std::vector<double> u(vec(mK0 * x));
 
-	//mu.push_back(u);
 
 	if(mIxu.size()==0) 
 	{
 		mIxu.push_back(-2*dt*vec(kProd(x,mR*u)));
 		++itxu;
-	} else{
-		//std::vector<double> tem2=vec(mIxu.back()+2*dt*kProd(x,mR*u));
-		//mIxu.push_back(tem2);
-		mIxu.push_back(mIxu.back()-2*dt*vec(kProd(x,mR*u)));
-	}
-
-	//std::cout << mxx.size() << ',' <<t << std::endl;
-
+	} else mIxu.push_back(mIxu.back()-2*dt*vec(kProd(x,mR*u)));
 
 	if (t > mdelta && mxx.size()>1 && mIxx.size()>1 && mIxu.size()>1){
 		//std::cout << mdelta << std::endl;
@@ -244,7 +223,7 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 		std::vector<double> vec2 = mIxu.back() - *itxu;
 
 		std::vector<Matrix> optResult = mADPalg->online(vec0, vec1, vec2, mBigr, mThetaInv, mBigV);
-		double err= optResult[0].F();
+		double err= norm(optResult[0]);
 		mP = optResult[1];
 		mKadp= optResult[2];
 		mBigV = vec(mThetaInv * *mBigr * vec(mP));

@@ -29,11 +29,15 @@ int main()
 	SymmetricMatrix P({0.01,0,0.01});
 	SymmetricMatrix R(1,1.0);
 	Step mystep(1,50,1);
+	std::vector<double> x0(2,2);
+
+	std::cout << norm<'F'>(sysA) << std::endl;
+	std::cout << norm<'E'>(sysA) << std::endl;
+	std::cout << norm<2>(x0) << std::endl;
 
 	// simulate ADP + dynamical system
 	int n = sysA.size()[0];
 	int m = sysB.size()[0];
-	std::vector<double> x0(2,2);
 	Matrix K0({0,0.0},n);
 	ControllerADP<VI> myADP(Q,R,0.1, P, &mystep);
 	ControllerADP<AlgorithmPI> myADP2(Q,R,0.1, K0);

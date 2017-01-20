@@ -27,13 +27,13 @@ namespace ADP{
 			void dispAll();
 		private:
 			std::list<std::vector<double>> mxx;
-			//std::list<std::vector<double>> mu;
 			std::list<std::vector<double>> mIxx;
 			std::list<std::vector<double>> mIxu;
+			//std::list<std::vector<double>> mu;
 			//std::list<std::vector<double>> mTheta;
 			//std::list<std::vector<double>> mXi;
-			//int mn;
-			//int mm;
+			//unsigned int mn;
+			//unsigned int mm;
 			Matrix mK0;
 			Matrix mKadp;
 			SymmetricMatrix mQ;
@@ -48,11 +48,6 @@ namespace ADP{
 			std::shared_ptr<Matrix> mBigTheta;
 			std::shared_ptr<Matrix> mBigr;
 			std::shared_ptr<AlgorithmADP> mADPalg;
-			//void LS(const std::vector<double>& phi, const double d);
-			//Matrix mxT;
-			//Matrix muT;
-			//Matrix mIxT;
-			//Matrix mTheta;
 	};
 #include "ControllerADP.cpp"
 }

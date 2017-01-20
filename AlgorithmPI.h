@@ -17,12 +17,10 @@ namespace ADP
 
 			AlgorithmPI(const SymmetricMatrix& Q, const SymmetricMatrix& R, const Matrix& K0);
 			AlgorithmPI(): mQ(), mR(), mP(), mK0(), mK(), mk(1){};
-			virtual std::shared_ptr<AlgorithmADP> Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound=10);
-			virtual std::vector<Matrix> offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N=20000, const double eps=1e-5);
-			virtual std::vector<Matrix> onlineI(const std::vector<double>&  vec);
-			virtual std::vector<Matrix> online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV);
-			//virtual std::vector<Matrix> onlineB(const std::vector<double>&  state, const std::vector<double>& input){return mResult;};
-			virtual ~AlgorithmPI();
+			virtual const std::vector<Matrix>& offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N=20000, const double eps=1e-5);
+			virtual const std::vector<Matrix>& online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV);
+			virtual std::shared_ptr<AlgorithmADP> Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound=10) const;
+			virtual ~AlgorithmPI(){};
 		private:
 			SymmetricMatrix mQ;
 			SymmetricMatrix mR;
@@ -31,6 +29,7 @@ namespace ADP
 			Matrix mK;
 			unsigned int mk;
 			std::vector<Matrix> mResult;
+			virtual void onlineI(const std::vector<double>&  vec);
 
 	};
 }

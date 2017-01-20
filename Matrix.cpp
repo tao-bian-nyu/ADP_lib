@@ -37,17 +37,6 @@ namespace ADP
 
 	}
 
-	//Matrix::Matrix(const Matrix& mat)
-		//:mncol(mat.mncol),
-		//mnrow(mat.mnrow),
-		//matrix(mat.matrix)
-	//{
-	//}
-
-	//Matrix::~Matrix()
-	//{
-		//// delete[] matrix;
-	//}
 
 	const double& Matrix::operator()(const unsigned int colIdx, const unsigned int rowIdx) const
 	{
@@ -163,39 +152,6 @@ namespace ADP
 		return matrix;
 	}
 
-	//const std::vector<double> Matrix::vecs() const
-	//{
-		//std::vector<double> vecOut;
-		//for(int i=1;i<=mnrow;i++)
-		//{
-			//vecOut.push_back(this->operator()(i,i));
-			//for(int j=i+1;j<=mncol;j++)
-			//{
-				//vecOut.push_back(2*(this->operator()(i,j)));
-			//}
-		//}
-		//return vecOut;
-		////std::vector<double> vecOut;
-		////auto it0 = vecOut.begin();
-		////auto it1 = matrix.begin();
-		////auto it2 = it1 + mnrow;
-		///[>it0 = *it1;
-		////for(int i=1;i<=mncol;i++)
-		////{
-			////vecOut.push_back(this->operator()(i,i));
-			////std::vector<double> vec0 = mxx.back() - *itx;
-			////std::vector<double> vec1 = mIxx.back() - *itxx;
-			////std::vector<double> vec2 = mIxu.back() - *itxu;
-			////vecOut.insert(++it0, it1, it2);
-	
-			////for(int j=i+1;j<=mncol;j++)
-			////{
-				////vecOut.push_back(2*(this->operator()(i,j)));
-			////}
-		////}
-		////return vecOut;
-
-	//}
 
 	const Matrix Matrix::t() const
 	{
@@ -210,32 +166,13 @@ namespace ADP
 	}
 
 
-	//const Matrix Matrix::inv() const
+
+	//const double Matrix::F() const
 	//{
-		//if (mncol!=mnrow) {
-			//std::cout << "not square matrix!" << std::endl;
-			//return *this;
-		//}
-		//int n = mncol;
-		//Matrix matOut(mncol, mncol, 0.0);
-		//Diagonal I(mncol,1);
-		////Matrix I(I0); 
+		//double out = accumulate(matrix.begin(), matrix.end(), 0.0, [](double i, double j){return i + j*j;});
+		//return sqrt(out);
 
-		//for(int i=1;i<=n;++i)
-		//{
-			//AlgorithmRLS myRLS(this->t(), I.col(i), 0.00001);
-			//matOut.col(i,myRLS.disp());
-		//}
-
-		//return matOut;
 	//}
-
-	const double Matrix::F() const
-	{
-		double out = accumulate(matrix.begin(), matrix.end(), 0.0, [](double i, double j){return i + j*j;});
-		return sqrt(out);
-
-	}
 
 	const Matrix& Matrix::add(const double val) 
 	{
@@ -243,15 +180,7 @@ namespace ADP
 		return *this;
 	}
 
-	//Matrix::operator SquareMatrix() const
-	//{
-	//if (mncol == mnrow)
-	//{
-	//SquareMatrix matOut(*this);
-	//return matOut;
 
-	//}
-	//}
 
 	const std::vector<int>  Matrix::size() const
 	{

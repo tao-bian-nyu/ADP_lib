@@ -1,7 +1,6 @@
 #ifndef ALGORITHMRLS_H
 #define ALGORITHMRLS_H
 
-//#include "Matrix.h"
 #include "SquareMatrix.h"
 
 namespace ADP

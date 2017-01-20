@@ -9,15 +9,11 @@ namespace ADP
   class Diagonal:public SymmetricMatrix
   {
   public:
-    explicit Diagonal(const int ncol, const double val=1.0);
+    explicit Diagonal(const int ncol = 1, const double val=1.0);
     Diagonal(const Diagonal& mat):SymmetricMatrix(mat){};
     Diagonal(const Matrix& mat);
     explicit Diagonal(const std::vector<double> & input);
-    //virtual const int size() const;
-    //virtual const SymmetricMatrix& operator=(const SymmetricMatrix& mat);
-
-  //private:
-    //const int symget_dim(const std::vector<double> & input);
+    virtual ~Diagonal(){};
   };
 
 }

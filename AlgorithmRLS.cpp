@@ -12,22 +12,15 @@
 namespace ADP
 {
 	AlgorithmRLS::AlgorithmRLS(const Matrix& Phi, const std::vector<double>& d, const long double epsilon)
-		//:mW(Phi.size()[1],0),mP(Phi.size()[1],Phi.size()[1],0),mEpsilon(epsilon)
 		:mW(Phi.size()[1],0),mP(Phi.size()[1]),mEpsilon(epsilon)
 	{
 		const unsigned int n = Phi.size()[0];
 		const unsigned int m = Phi.size()[1];
-		//std::vector<double> g(m,0);
-		//Diagonal P0(m,1/mEpsilon);
-		//SquareMatrix P(mP+1/mEpsilon); 
 		mP = mP+1/mEpsilon; 
 
 		for(unsigned int i=1;i<=n;++i)
 		{
-			mP = mP - 1 / (1 + double(t(Phi.col(i))*mP*Phi.col(i))) * mP * Phi.col(i) * t(mP * Phi.col(i));
-			//g = vec(mP * Phi.col(i));
-			//double alpha = d[i-1] - mW * Phi.col(i);
-			//mW = mW + g * alpha;
+			mP = mP - 1 / (1 + double(T(Phi.col(i))*mP*Phi.col(i))) * mP * Phi.col(i) * T(mP * Phi.col(i));
 			mW = mW + (d[i-1] - mW * Phi.col(i)) * vec(mP * Phi.col(i));
 		}
 

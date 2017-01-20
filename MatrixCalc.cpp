@@ -36,17 +36,9 @@ namespace ADP
 	
 	const SquareMatrix operator+(const SquareMatrix& lhs_mat, const double rhs_num)
 	{
-		SquareMatrix matout(lhs_mat);
-		// matout.matrix = new double[kend];
-		const unsigned int n = matout.size()[0];
+		const unsigned int n = lhs_mat.size()[0];
 		Diagonal rhs_mat(n,rhs_num);
-		matout = matout + rhs_mat;
-
-		//for (int i=1;i<=ncol;i++){
-			//// matout.matrix[k]+=rhsmat.matrix[k];
-			//matout(i,i)+=rhs_mat(i,i);
-		//}
-		return matout;
+		return lhs_mat + rhs_mat;
 	}
 
 	const Matrix operator+(const Matrix& lhs_mat, const Matrix& rhs_mat)
@@ -136,7 +128,6 @@ namespace ADP
 		{
 			std::cout <<"error! different vector length" << std::endl;
 			throw;
-			//return lhs_vec;
 		}
 		std::vector<double> vecOut(lhs_vec);
 		transform(vecOut.cbegin(), vecOut.cend(), rhs_vec.begin(), vecOut.begin(), std::plus<double>());
@@ -149,7 +140,6 @@ namespace ADP
 		{
 			std::cout <<"error! different vector length" << std::endl;
 			throw;
-			//return lhs_vec;
 		}
 		std::vector<double> vecOut(lhs_vec);
 		std::transform(vecOut.begin(), vecOut.end(), rhs_vec.begin(), vecOut.begin(), std::minus<double>());
@@ -164,15 +154,9 @@ namespace ADP
 		{
 			std::cout <<"error! different vector length" << std::endl;
 			throw;
-			//return 0;
 		}
 
 		return std::inner_product(lhs_vec.begin(), lhs_vec.end(), rhs_vec.begin(),0.0);
-
-		//std::vector<double> vecOut(lhs_vec);
-		//std::transform(vecOut.begin(), vecOut.end(), rhs_vec.begin(), vecOut.begin(), std::multiplies<double>());
-		////double out = std::accumulate(vecOut.begin(),vecOut.end(),0.0);
-		//return std::accumulate(vecOut.begin(),vecOut.end(),0.0);
 
 	}
 
@@ -188,9 +172,16 @@ namespace ADP
 		return matout;
 	}
 
+
+	const Matrix operator/(const Matrix& lhs_mat, const double rhs_num)
+	{
+		return lhs_mat * 1/rhs_num;
+	}
+
+
+
 	const Matrix operator*(const Matrix& lhs_mat, const Matrix& rhs_mat)
 	{
-		//if (rhs_mat.size()[1]!=lhs_mat.size()[0]) return rhs_mat;
 		if (rhs_mat.size()[1]!=lhs_mat.size()[0])
 		{
 			std::cout <<"error! matrices do not match" << std::endl;
@@ -250,7 +241,7 @@ namespace ADP
 
 
 
-	const Matrix t(const Matrix& mat)
+	const Matrix T(const Matrix& mat)
 	{
 		return mat.t();
 	}
@@ -278,10 +269,8 @@ namespace ADP
 
 	void disp(const std::vector<double>& vec)
 	{
-		auto it = vec.begin();
-
 		std::cout<<std::endl;
-		for (;it!=vec.end();++it)
+		for (auto it = vec.begin();it!=vec.end();++it)
 		{
 			std::cout<< std::setw(5) << *it << ',';
 		}
@@ -293,10 +282,10 @@ namespace ADP
 		return mat.inv();
 	}
 
-	const Matrix cholesky(const SymmetricMatrix&  mat)
+	const SquareMatrix cholesky(const SymmetricMatrix&  mat)
 	{
 		unsigned int n = mat.size()[0];
-		Matrix matOut(n,n,0);
+		SquareMatrix matOut(n,0);
 
 		for (unsigned int i=1;i<=n;++i)
 			for (unsigned int j=1;j<=i;++j){
@@ -306,20 +295,63 @@ namespace ADP
 					1.0/matOut(j,j)*(mat(i,j)-s);
 				if (std::isfinite(matOut(i,j))==0)
 				{
-					//std::cout << "not semipositive definite!" << std::endl;
 					throw std::invalid_argument("not semipositive definite!");
 				}
-				//std::cout<<std::isfinite(matOut(i,j));
 			}
 		return matOut;
 	}
-	//void matDisplay(const Matrix&  mat)
-	//{
-		//for(int i=1;i<=mat.size()[1];i++)
-		//{
-			//for(int j=1;j<=mat.size()[0];j++)
-				//std::cout << std::setw(5) << mat(i,j) << ',';
-			//std::cout << std::endl;
-		//}
-	//}
+
+
+	template<>
+	const double norm<'E'>(const Matrix& mat) 
+	{
+		SquareMatrix choMat(cholesky(mat*T(mat)));
+		std::vector<double> vec(diag(choMat));
+		return *std::max_element(vec.begin(), vec.end());
+
+	}
+
+
+	template<>
+	const double norm<'F'>(const Matrix& mat) 
+	{
+		std::vector<double> vecOut(vec(mat));
+		double out = std::inner_product(vecOut.begin(), vecOut.end(), vecOut.begin(),0.0);
+		return sqrt(out);
+
+	}
+
+	template<>
+	const double norm<'I'>(const Matrix& mat) 
+	{
+		double out =0;
+		std::vector<double> vecOut;
+
+		for (unsigned int i=1;i<=mat.size()[1]; ++i)
+		{
+			vecOut = mat.row(i);
+			double tem = std::inner_product(vecOut.begin(), vecOut.end(), vecOut.begin(),0.0);
+			out = std::max(tem,out);
+		}
+		return out;
+
+	}
+
+	template<>
+	const double norm<'1'>(const Matrix& mat) 
+	{
+		double out =0;
+		std::vector<double> vecOut;
+
+		for (unsigned int i=1;i<=mat.size()[0]; ++i)
+		{
+			vecOut = mat.col(i);
+			double tem = std::inner_product(vecOut.begin(), vecOut.end(), vecOut.begin(),0.0);
+			out = std::max(tem,out);
+		}
+		return out;
+
+	}
+
+
 }
