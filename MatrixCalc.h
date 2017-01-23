@@ -76,7 +76,7 @@ namespace ADP
 	{
 		double sum = 0;
 		std::for_each(vec.begin(), vec.end(), [&](double i) { sum += pow(std::abs(i),P);} );
-		return pow(sum,1/P);
+		return pow(sum,1/double(P));
 	}
 
 

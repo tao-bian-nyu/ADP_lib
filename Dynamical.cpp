@@ -141,48 +141,20 @@ const std::vector<double> Dynamical::Run(const double t0, const std::vector<doub
 	E sim(mA,mB,mdt);
 	for(unsigned int i=floor(mT/mdt);i<=floor(t/mdt);++i){
 
-		mx = sim.linear(mx, mCtrl, mInFun, mT);
+		sim.linear(mx, mCtrl, mInFun, mT);
+		mx = sim.state();
+		mu = sim.input();
 		mT += mdt;
 		//if (mCtrl!=nullptr)
 		//mu = mCtrl->input(mx,mdt,mT);
 		//else if (mInFun!=nullptr)
 		//mu = mInFun(mx,mB.size()[0],mT);
 
-		mStateAll[i] = mx;
-		mInputAll[i] = mu;
+		mStateAll[i] = sim.state();
+		mInputAll[i] = sim.state();
 
 		//mx = mx + mdt*vec(mA * mx + mB * mu);
 	}
 	return mx;
 }	
 
-
-
-//const std::vector<double> Dynamical::RK(const double t0, const std::vector<double>& x, const double t)
-//{
-//mT = t0;
-//mx = x;
-
-//for(unsigned int i=floor(mT/mdt);i<=floor(t/mdt);++i){
-
-////if(t==50)
-////{
-////mA=SquareMatrix({-1,-0.0,3,-1});
-////}
-//if (mCtrl!=nullptr)
-//mu = mCtrl->input(mx,mdt,mT);
-//else if (mInFun!=nullptr)
-//mu = mInFun(mx,mB.size()[0],mT);
-
-//mStateAll[i] = mx;
-//mInputAll[i] = mu;
-
-//mT += mdt;
-//mx = mx + mdt*vec(mA * mx + mB * mu);
-////disp(mx);
-////mStateAll.col(i+1,mx);
-//}
-//return mx;
-
-//}
-//}

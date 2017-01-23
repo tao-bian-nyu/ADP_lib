@@ -25,7 +25,6 @@ namespace ADP
 		SymmetricMatrix error(mP);
 		for(mk = 1; mk<N; mk++)
 		{
-			//const double step = 1/(mk+100.0);
 			const double step = mStep->stepOut(mk);
 			error = T(sysA) * mP + mP * sysA + mQ - mP * sysB * inv(mR) * T(sysB) * mP;
 			mP = mP + step * error;
@@ -53,6 +52,7 @@ namespace ADP
 	{
 		//std::cout << "VI loop " << mk << std::endl;
 		const double step = mStep->stepOut(mk++);
+		std::cout << "step is " << step << std::endl;
 		const unsigned int n = mQ.size()[0];
 		auto first = vec.begin();
 		const auto last = vec.begin()+n*(n+1)/2;

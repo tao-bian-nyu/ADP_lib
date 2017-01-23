@@ -8,6 +8,8 @@
 #include "SquareMatrix.h"
 #include "Controllers.h"
 #include "Others.h"
+#include "EU.h"
+#include "RK.h"
 
 namespace ADP
 {
@@ -21,7 +23,7 @@ namespace ADP
 			//Dynamical(const SquareMatrix A, const Matrix B, const std::vector<double> x0, Controllers* controller, const long double dt=1e-5);
 			Dynamical(const SquareMatrix A, const Matrix B = Matrix(), Controllers* controller = nullptr, const long double dt=1e-5);
 			//const std::vector<double>& x(const double t, simulate = &EU);
-			template <typename E>
+			template <typename E=EU>
 			const std::vector<double>& x(const double t, const std::vector<double> x0); 
 			//const std::vector<double>& x(const double t, const std::vector<double> x0, simulate simFun= &Dynamical::EU); 
 			void printAll() const;

@@ -76,8 +76,9 @@ namespace ADP
 		mThetaInv = mThetaInv - 1 / (1 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi);
 		std::vector<double> err((vec1*vec(mQ+T(mK)*mR*mK) - mBigV * phi)* (vec(mThetaInv * phi)));
 		mBigV = mBigV + err;
+		std::cout << norm(err) << std::endl;
 
-		if(norm(err)<1e-10)
+		if(norm(err)<1e-7)
 		{
 			onlineI(mBigV);
 			//disp(mResult[1]);

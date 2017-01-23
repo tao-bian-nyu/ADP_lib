@@ -24,16 +24,13 @@ namespace ADP{
 			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, const Matrix& K, Step* stepf=nullptr);
 			virtual const std::vector<double> input(const std::vector<double>& x, const double dt, const double t=0, noise noif=&sinusoidal);
 			virtual ~ControllerADP(){};
-			void dispAll();
+			void dispAll() const;
 		private:
 			std::list<std::vector<double>> mxx;
 			std::list<std::vector<double>> mIxx;
 			std::list<std::vector<double>> mIxu;
-			//std::list<std::vector<double>> mu;
-			//std::list<std::vector<double>> mTheta;
-			//std::list<std::vector<double>> mXi;
-			//unsigned int mn;
-			//unsigned int mm;
+			unsigned int mn;
+			unsigned int mm;
 			Matrix mK0;
 			Matrix mKadp;
 			SymmetricMatrix mQ;
@@ -45,7 +42,7 @@ namespace ADP{
 			std::list<std::vector<double>>::iterator itxu;
 			SymmetricMatrix mThetaInv;
 			std::vector<double> mBigV;
-			std::shared_ptr<Matrix> mBigTheta;
+			//std::shared_ptr<Matrix> mBigTheta;
 			std::shared_ptr<Matrix> mBigr;
 			std::shared_ptr<AlgorithmADP> mADPalg;
 	};

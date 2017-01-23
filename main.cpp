@@ -21,15 +21,21 @@ int main()
 {
 	using namespace ADP;
 	using VI = AlgorithmVI; 
+	using PI = AlgorithmPI; 
+
 	std::cout<< "This is the test of ADPlib v1.0"<<std::endl;
 
-	SquareMatrix sysA({-1,0.1,2,-1});
-	Matrix sysB({0,1},1);
-	SymmetricMatrix Q({1,0,1});
-	SymmetricMatrix P({0.01,0,0.01});
+	SquareMatrix sysA({-1,0.1,0,2,-1,0.1,1, 2, 1});
+	Matrix sysB({0,0,1},1);
+	SymmetricMatrix Q({1,0,0,1,0,1});
+	SymmetricMatrix P(Q*0+0.01);
 	SymmetricMatrix R(1,1.0);
-	Step mystep(1,50,1);
-	std::vector<double> x0(2,2);
+	Step mystep(1,10,1);
+	std::vector<double> x0({2,0,0});
+	disp(sysA);
+	disp(sysB);
+	disp(Q);
+	disp(R);
 
 	std::cout << norm<'F'>(sysA) << std::endl;
 	std::cout << norm<'E'>(sysA) << std::endl;
@@ -38,9 +44,9 @@ int main()
 	// simulate ADP + dynamical system
 	int n = sysA.size()[0];
 	int m = sysB.size()[0];
-	Matrix K0({0,0.0},n);
+	Matrix K0({0,0.0,0},n);
 	ControllerADP<VI> myADP(Q,R,0.1, P, &mystep);
-	ControllerADP<AlgorithmPI> myADP2(Q,R,0.1, K0);
+	ControllerADP<PI> myADP2(Q,R,0.1, K0);
 	double t = 0;
 	double dt = 0.0001;
 
@@ -48,12 +54,12 @@ int main()
 
 	Dynamical myADPsys(sysA, sysB, myCtrl, dt);
 	//disp(myADPsys.x(50,x0,&Dynamical::RK));
-	//disp(myADPsys.x<EU>(50,x0));
+	disp(myADPsys.x(50,x0));
 
 	myCtrl = &myADP2;
 
-	Dynamical myADPsys2(sysA, sysB, myCtrl, dt);
-	disp(myADPsys2.x<RK>(50,x0));
+	//Dynamical myADPsys2(sysA, sysB, myCtrl, dt);
+	//disp(myADPsys2.x<RK>(50,x0));
 
 
 	 //offline VI
