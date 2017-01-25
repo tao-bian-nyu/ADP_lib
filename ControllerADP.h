@@ -23,6 +23,7 @@ namespace ADP{
 			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf=nullptr);
 			ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, const Matrix& K, Step* stepf=nullptr);
 			virtual const std::vector<double> input(const std::vector<double>& x, const double dt, const double t=0, noise noif=&sinusoidal);
+			const Matrix& learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t=0, noise noif=&sinusoidal);
 			virtual ~ControllerADP(){};
 			void dispAll() const;
 		private:

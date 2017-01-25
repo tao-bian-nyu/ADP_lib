@@ -18,7 +18,7 @@ namespace ADP{
 		std::vector<double>out(m,0);
 		for (unsigned int k=0;k<m;++k)
 			for(int j=1;j<=500;++j)
-				out[k] += 0.05*sin(j*t+2*M_PI*k/m);
+				out[k] += 0.1*sin(j*t+2*M_PI*k/m);
 		return out; 
 	}
 

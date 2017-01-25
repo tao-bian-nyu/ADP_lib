@@ -100,9 +100,8 @@
 	template <typename E>
 const std::vector<double>& Dynamical::x(const double t, const std::vector<double> x0) 
 {
-	if (mT==0 || x0!=mStateAll[0]) 
+	if (mT==0 || x0!=mStateAll.at(0)) 
 	{
-		//(this->*simFun)(0, x0,t);
 		Run<E>(0, x0,t);
 		return mx;
 
@@ -110,8 +109,6 @@ const std::vector<double>& Dynamical::x(const double t, const std::vector<double
 	else if (t<mT) 
 		return mStateAll[floor(t/mdt)];
 	else{
-
-		//(this->*simFun)(mT, mx, t);
 		Run<E>(mT, mx, t);
 		return mx;
 	}
@@ -132,6 +129,10 @@ void Dynamical::printAll() const
 }
 
 
+std::unordered_map<int,std::vector<double>>::const_iterator Dynamical::expState() const
+{
+	return mStateAll.begin();
+}
 	template <typename E>
 const std::vector<double> Dynamical::Run(const double t0, const std::vector<double>& x, const double t)
 {
@@ -140,18 +141,20 @@ const std::vector<double> Dynamical::Run(const double t0, const std::vector<doub
 
 	E sim(mA,mB,mdt);
 	for(unsigned int i=floor(mT/mdt);i<=floor(t/mdt);++i){
-
+		mStateAll[i] = mx; 
 		sim.linear(mx, mCtrl, mInFun, mT);
 		mx = sim.state();
 		mu = sim.input();
 		mT += mdt;
+		std::cout << "state: ";
+		disp(mx);
+		std::cout << "time: " << mT << std::endl;
 		//if (mCtrl!=nullptr)
 		//mu = mCtrl->input(mx,mdt,mT);
 		//else if (mInFun!=nullptr)
 		//mu = mInFun(mx,mB.size()[0],mT);
 
-		mStateAll[i] = sim.state();
-		mInputAll[i] = sim.state();
+		mInputAll[i] = mu;
 
 		//mx = mx + mdt*vec(mA * mx + mB * mu);
 	}

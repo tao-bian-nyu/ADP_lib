@@ -52,7 +52,7 @@ namespace ADP
 	{
 		//std::cout << "VI loop " << mk << std::endl;
 		const double step = mStep->stepOut(mk++);
-		std::cout << "step is " << step << std::endl;
+		//std::cout << "step is " << step << std::endl;
 		const unsigned int n = mQ.size()[0];
 		auto first = vec.begin();
 		const auto last = vec.begin()+n*(n+1)/2;

@@ -62,12 +62,8 @@
 }
 
 	template <>
-const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
-{	
-
-	if (dt<1e-20) 
-		return noif(mm,t);
-
+const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t, noise noif)
+{
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vecs(prod(x,x)));
@@ -82,7 +78,7 @@ const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<do
 	}
 	else mIxx.push_back(mIxx.back()-dt*vec(kProd(x,x)));
 
-	std::vector<double> u = noif(mm,t);
+
 
 
 	if(mIxu.size()==0) 
@@ -133,16 +129,15 @@ const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<do
 		--itxx;
 		--itxu;
 
-		//}
+	}
 
+	return mKadp;
 }
 
-return u;
 
-}
 	template <typename T>
-const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
-{	
+const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t, noise noif)
+{
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vec(kProd(x,x)));
@@ -155,9 +150,6 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 		++itxx;
 	}
 	else mIxx.push_back(mIxx.back()+dt*vecs(prod(x,x)));
-
-
-	std::vector<double> u = noif(mm,t);
 
 	if(mIxu.size()==0) 
 	{
@@ -196,7 +188,7 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 		//mKadp= optResult[2];
 		//mBigV = vec(mThetaInv * *mBigr * vec(mP));
 
-		std::cout<< "|x| = " << norm(x) << std::endl;
+		//std::cout<< "|x| = " << norm(x) << std::endl;
 
 
 
@@ -211,8 +203,8 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 		mKadp= optResult[2];
 		mBigV = vec(mThetaInv * *mBigr * vec(mP));
 
-		std::cout << "the error is " << err << std::endl;
-		mP.disp();
+		//std::cout << "the error is " << err << std::endl;
+		//mP.disp();
 
 		if(err<1e-10)                                                                            // convergence
 		{
@@ -249,10 +241,34 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 
 		//}
 	}
+	return mKadp;
+}
+
+
+	template <typename T>
+const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
+{	
+	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
+	learner(x,u,dt,t,noif);
 
 	return u;
 
 }
+
+	template <>
+const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
+{	
+	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
+	learner(x,u,dt,t,noif);
+
+	if (dt<1e-20) 
+		return noif(mm,t);
+
+	return u;
+
+}
+
+
 
 template <typename T>
 void ControllerADP<T>::dispAll() const 
