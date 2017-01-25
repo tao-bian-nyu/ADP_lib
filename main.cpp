@@ -39,11 +39,12 @@ int main()
 	double t = 0;
 	double dt = 0.0001;
 
-	Matrix K0({0,0.0,2},n);
+	Matrix K0({0,0.0,0},n);
 	ControllerADP<VI> myADP(Q,R,0.1, P, &mystep);
 	//ControllerADP<PI> myADP(Q,R,0.1, K0);
 	Controllers* myCtrl = &myADP;
 
+	//Dynamical myADPsys(sysA, sysB,  dt);
 	Dynamical myADPsys(sysA, sysB, myCtrl, dt);
 	//disp(myADPsys.x(50,x0,&Dynamical::RK));
 	//disp(myADPsys.x(50,x0));

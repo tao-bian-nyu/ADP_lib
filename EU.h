@@ -13,6 +13,7 @@ namespace ADP{
 			void linear(const std::vector<double>& x, Controllers* controller = nullptr, inputfun input = nullptr, const double t=0);
 			const std::vector<double> state() const {return mx;};
 			const std::vector<double> input() const {return mu;};
+			void dispAll() const;
 		private:
 			SquareMatrix mA;
 			Matrix mB;

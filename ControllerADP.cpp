@@ -62,7 +62,7 @@
 }
 
 	template <>
-const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t, noise noif)
+const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t)
 {
 	if(mxx.size()==0) 
 	{
@@ -136,7 +136,7 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 
 
 	template <typename T>
-const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t, noise noif)
+const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t)
 {
 	if(mxx.size()==0) 
 	{
@@ -249,7 +249,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
 {	
 	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
-	learner(x,u,dt,t,noif);
+	learner(x,u,dt,t);
 
 	return u;
 
@@ -259,7 +259,7 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
 {	
 	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
-	learner(x,u,dt,t,noif);
+	learner(x,u,dt,t);
 
 	if (dt<1e-20) 
 		return noif(mm,t);

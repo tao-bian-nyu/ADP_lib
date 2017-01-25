@@ -23,4 +23,18 @@ namespace ADP{
 				mx = (x+mdt*vec(mA * x));
 
 	}
+
+
+	void EU::dispAll() const
+	{
+		std::cout << "mA is";
+		disp(mA);
+		std::cout << "mB is";
+		disp(mB);
+		std::cout << "mx is";
+		disp(mx);
+		std::cout << "mu is";
+		disp(mu);
+		std::cout << "mdt is " << mdt << std::endl;
+	}
 }
