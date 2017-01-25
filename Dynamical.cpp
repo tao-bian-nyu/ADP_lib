@@ -149,10 +149,6 @@ const std::vector<double> Dynamical::Run(const double t0, const std::vector<doub
 		std::cout << "state: ";
 		disp(mx);
 		std::cout << "time: " << mT << std::endl;
-		//if (mCtrl!=nullptr)
-		//mu = mCtrl->input(mx,mdt,mT);
-		//else if (mInFun!=nullptr)
-		//mu = mInFun(mx,mB.size()[0],mT);
 
 		mInputAll[i] = mu;
 

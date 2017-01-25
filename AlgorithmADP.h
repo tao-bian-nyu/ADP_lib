@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <memory>
 #include "Matrix.h"
 #include "SymmetricMatrix.h"
 #include "SquareMatrix.h"

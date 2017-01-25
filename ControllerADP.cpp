@@ -115,7 +115,7 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 		//double err= optResult[0].F();
 		mP = optResult[1];
 		mKadp= optResult[2];
-		disp(mP);
+		//disp(mP);
 		//mBigV = vec(mThetaInv * *mBigr * vec(mP));
 
 		//std::cout << "the error is " << err << std::endl;
@@ -273,15 +273,21 @@ const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<do
 template <typename T>
 void ControllerADP<T>::dispAll() const 
 {
-	std::cout <<"what is in mxx" << std::endl;
-	for (auto itx = mxx.begin();itx!=mxx.end();++itx)
-		disp(*itx);
-	std::cout <<"what is in mIxx" << std::endl;
-	for (auto itxx = mIxx.begin();itxx!=mIxx.end();++itxx)
-		disp(*itxx);
-	std::cout <<"what is in mIxu" << std::endl;
-	for (auto itxu = mIxu.begin();itxu!=mIxu.end();++itxu)
-		disp(*itxu);
+	//std::cout <<"what is in mxx" << std::endl;
+	//for (auto itx = mxx.begin();itx!=mxx.end();++itx)
+		//disp(*itx);
+	//std::cout <<"what is in mIxx" << std::endl;
+	//for (auto itxx = mIxx.begin();itxx!=mIxx.end();++itxx)
+		//disp(*itxx);
+	//std::cout <<"what is in mIxu" << std::endl;
+	//for (auto itxu = mIxu.begin();itxu!=mIxu.end();++itxu)
+		//disp(*itxu);
+	std::cout <<"what is Kadp" << std::endl;
+	disp(mKadp);
+	std::cout <<"what is K" << std::endl;
+	disp(mK0);
+	std::cout <<"what is P" << std::endl;
+	disp(mP);
 
 }
 

@@ -25,7 +25,7 @@ namespace ADP{
 			virtual const std::vector<double> input(const std::vector<double>& x, const double dt, const double t=0, noise noif=&sinusoidal);
 			const Matrix& learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t=0, noise noif=&sinusoidal);
 			virtual ~ControllerADP(){};
-			void dispAll() const;
+			virtual void dispAll() const;
 		private:
 			std::list<std::vector<double>> mxx;
 			std::list<std::vector<double>> mIxx;

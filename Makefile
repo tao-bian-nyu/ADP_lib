@@ -8,7 +8,7 @@ SUFFIXES :=
 CC = gcc
 CPP = g++
 CPPFLAGS = -std=c++11
-Forall = Makefile RK.h EU.h Others.h Step.h Controllers.h ControllerADP.h Dynamical.h AlgorithmRLS.h AlgorithmADP.h AlgorithmPI.h AlgorithmVI.h MatrixCalc.h Matrix.h SquareMatrix.h SymmetricMatrix.h Diagonal.h
+Forall = RK.h EU.h Others.h Step.h Controllers.h ControllerADP.h Dynamical.h AlgorithmRLS.h AlgorithmADP.h AlgorithmPI.h AlgorithmVI.h MatrixCalc.h Matrix.h SquareMatrix.h SymmetricMatrix.h Diagonal.h
 
 all: ADPsolver clean
 
@@ -30,17 +30,12 @@ AlgorithmVI.o: AlgorithmVI.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c AlgorithmVI.cpp
 AlgorithmPI.o: AlgorithmPI.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c AlgorithmPI.cpp
-#Dynamical.o: Dynamical.cpp $(Forall)
-	#$(CPP) $(CPPFLAGS) -c Dynamical.cpp
 Others.o: Others.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c Others.cpp
 RK.o: RK.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c RK.cpp
-
 EU.o: EU.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c EU.cpp
-#ADPsolver: RK.o Others.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
-	#$(CPP) $(CPPFLAGS) -o ADPsolver RK.o Others.o Dynamical.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
 
 ADPsolver: RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
 	$(CPP) $(CPPFLAGS) -o ADPsolver RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o

@@ -2,7 +2,7 @@
 #include <vector>
 #include <math.h>
 #include <algorithm>
-#include "matrix.h"
+#include "Matrix.h"
 #include "AlgorithmPI.h"
 #include "AlgorithmVI.h"
 #include "AlgorithmADP.h"
@@ -76,9 +76,9 @@ namespace ADP
 		mThetaInv = mThetaInv - 1 / (1 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi);
 		std::vector<double> err((vec1*vec(mQ+T(mK)*mR*mK) - mBigV * phi)* (vec(mThetaInv * phi)));
 		mBigV = mBigV + err;
-		std::cout << norm(err) << std::endl;
+		//std::cout << norm(err) << std::endl;
 
-		if(norm(err)<1e-7)
+		if(norm(err)<1e-5)
 		{
 			onlineI(mBigV);
 			//disp(mResult[1]);
