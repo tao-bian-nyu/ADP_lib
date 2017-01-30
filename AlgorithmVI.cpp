@@ -86,9 +86,12 @@ namespace ADP
 		phi = vec1;
 		phi.insert(phi.end(), vec2.begin(), vec2.end());
 
-		*mBigr= *mBigr + prod(phi,vec0);// half online case;
+		//*mBigr= *mBigr + prod(phi,vec0);// half online case
 		mThetaInv = mThetaInv - 1 / (1 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi);
-		mBigV = mBigV + (vec0*vec(mP) - mBigV * phi)* vec(mThetaInv * phi);
+		//mThetaInv =  1/0.9* ( mThetaInv - 1 / (0.9 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi));   // discounted
+		*mBigr= *mBigr + mThetaInv*phi*T(vec0) - mThetaInv*phi*T(phi)* *mBigr;  // online case;
+		mBigV = vec(*mBigr * vec(mP));
+		//mBigV = mBigV + (vec0*vec(mP) - mBigV * phi)* vec(mThetaInv * phi);// half online case
 
 		onlineI(mBigV);
 		return mResult;

@@ -201,7 +201,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 		double err= norm(optResult[0]);
 		mP = optResult[1];
 		mKadp= optResult[2];
-		mBigV = vec(mThetaInv * *mBigr * vec(mP));
+		//mBigV = vec(mThetaInv * *mBigr * vec(mP)); // half online
 
 		//std::cout << "the error is " << err << std::endl;
 		//mP.disp();
@@ -284,7 +284,7 @@ void ControllerADP<T>::dispAll() const
 		//disp(*itxu);
 	std::cout <<"what is Kadp" << std::endl;
 	disp(mKadp);
-	std::cout <<"what is K" << std::endl;
+	std::cout <<"what is K0" << std::endl;
 	disp(mK0);
 	std::cout <<"what is P" << std::endl;
 	disp(mP);

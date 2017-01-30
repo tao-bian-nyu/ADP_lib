@@ -175,7 +175,7 @@ namespace ADP
 
 	const Matrix operator/(const Matrix& lhs_mat, const double rhs_num)
 	{
-		return lhs_mat * 1/rhs_num;
+		return 1/rhs_num * lhs_mat;
 	}
 
 

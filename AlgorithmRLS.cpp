@@ -15,7 +15,6 @@ namespace ADP
 		:mW(Phi.size()[1],0),mP(Phi.size()[1]),mEpsilon(epsilon)
 	{
 		const unsigned int n = Phi.size()[0];
-		const unsigned int m = Phi.size()[1];
 		mP = mP+1/mEpsilon; 
 
 		for(unsigned int i=1;i<=n;++i)

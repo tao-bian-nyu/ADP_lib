@@ -3,7 +3,6 @@
 
 namespace ADP{
 
-	//const std::vector<double> EU::linear(const std::vector<double>& x, Controllers* controller, inputfun input, const double t)
 	void EU::linear(const std::vector<double>& x, Controllers* controller, inputfun input, const double t)
 	{
 			if (controller!=nullptr)

@@ -5,7 +5,6 @@
 #include <iostream>
 #include <iomanip>
 #include "Matrix.h"
-#include "MatrixCalc.h"
 //#include "AlgorithmRLS.h"
 
 namespace ADP
@@ -176,7 +175,7 @@ namespace ADP
 
 	const Matrix& Matrix::add(const double val) 
 	{
-		matrix = matrix + val;
+		transform(matrix.begin(), matrix.end(), matrix.begin(), [=](double i){return i+val;});
 		return *this;
 	}
 
