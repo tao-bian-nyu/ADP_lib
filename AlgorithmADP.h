@@ -22,6 +22,7 @@ namespace ADP
 			virtual std::shared_ptr<AlgorithmADP> Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound=10) const =0;
 			virtual void resetStep(){};
 			virtual ~AlgorithmADP(){};
+			virtual void disp() const=0;
 		private:
 			virtual void onlineI(const std::vector<double>&  vec)=0;
 

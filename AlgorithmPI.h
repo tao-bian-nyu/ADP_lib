@@ -21,6 +21,7 @@ namespace ADP
 			virtual const std::vector<Matrix>& online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV);
 			virtual std::shared_ptr<AlgorithmADP> Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound=10) const;
 			virtual ~AlgorithmPI(){};
+			virtual void disp() const;
 		private:
 			SymmetricMatrix mQ;
 			SymmetricMatrix mR;

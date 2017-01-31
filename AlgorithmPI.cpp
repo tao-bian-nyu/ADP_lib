@@ -51,7 +51,7 @@ namespace ADP
 			//std::cout.flush();
 			vecP = vec(inv(kSum(T(sysA-sysB*mK),T(sysA-sysB*mK))) * vec(-mQ-T(mK)*mR*mK));
 			mP = Matrix(vecP,n);
-			disp(mP);
+			mP.disp();
 			mKold = mK;
 			mK = inv(mR)*T(sysB)*mP;
 			if(norm(mK-mKold)<eps){ 
@@ -93,6 +93,12 @@ namespace ADP
 		return mResult;
 	}
 
+	void AlgorithmPI::disp() const
+	{
+		mResult[0].disp();
+		mResult[1].disp();
+		mResult[2].disp();
 
+	}
 }
 

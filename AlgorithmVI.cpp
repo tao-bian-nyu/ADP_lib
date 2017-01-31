@@ -97,4 +97,11 @@ namespace ADP
 		return mResult;
 	}	
 
+	void AlgorithmVI::disp() const
+	{
+		mResult[0].disp();
+		mResult[1].disp();
+		mResult[2].disp();
+
+	}
 }
