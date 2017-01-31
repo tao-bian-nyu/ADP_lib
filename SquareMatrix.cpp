@@ -25,7 +25,7 @@ namespace ADP
 		for(unsigned int i=1;i<=n;++i)
 		{
 			AlgorithmRLS myRLS(T(*this), I.col(i));
-			matOut.col(i,myRLS.disp());
+			matOut.col(i,myRLS.w());
 		}
 
 		return matOut;

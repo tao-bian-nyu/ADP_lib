@@ -26,12 +26,12 @@ namespace ADP
 	}
 
 
-	const std::vector<double>& AlgorithmRLS::disp() const
+	const std::vector<double>& AlgorithmRLS::w() const
 	{
 		return mW;
 	}
 
-	void AlgorithmRLS::print() const
+	void AlgorithmRLS::disp() const
 	{
 		std::cout << "w is " << std::endl;
 		ADP::disp(mW);

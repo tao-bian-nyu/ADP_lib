@@ -1,5 +1,3 @@
-#include "MatrixCalc.h"
-#include "Matrix.h"
 #include <vector>
 #include <math.h>
 #include <algorithm>
@@ -9,6 +7,8 @@
 #include <iomanip>
 #include <cmath>
 #include <stdexcept>
+#include "MatrixCalc.h"
+#include "Matrix.h"
 
 
 namespace ADP

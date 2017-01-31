@@ -10,8 +10,8 @@ namespace ADP
 	{
 		public:
 			AlgorithmRLS(const Matrix& Phi, const std::vector<double>& d, const long double epsilon = 1e-10);
-			const std::vector<double>& disp() const;
-			void  print() const;
+			const std::vector<double>& w() const;
+			void  disp() const;
 		private: 
 			AlgorithmRLS(const AlgorithmRLS& );
 			const AlgorithmRLS& operator=(const AlgorithmRLS& ); 
