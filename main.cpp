@@ -37,7 +37,7 @@ int main()
 	unsigned int n = sysA.size()[0];
 	unsigned int m = sysB.size()[0];
 	double t = 0;
-	double dt = 0.0002;
+	double dt = 0.0001;
 
 	Matrix K0({0,0.0,0},n);
 	ControllerADP<VI> myADP(Q,R,0.1, P, &mystep);
@@ -55,7 +55,6 @@ int main()
 	disp(myADPsys.x(50,x0));
 	myCtrl->dispAll();
 
-	
 	//myCtrl = &myADP2;
 
 	//Dynamical myADPsys2(sysA, sysB, myCtrl, dt);

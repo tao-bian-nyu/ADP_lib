@@ -52,20 +52,21 @@ namespace ADP
 
 	const Matrix SquareMatrix::check_mat(const Matrix& mat) const
 	{
+		auto matSize = mat.size();
 
-		if (mat.size()[0]==mat.size()[1]) return mat;
-		else if (mat.size()[0]<mat.size()[1])
+		if (matSize[0]==matSize[1]) return mat;
+		else if (matSize[0]<matSize[1])
 		{
 			std::cout<<"warning! not square matrix." << std::endl;
-			Matrix out(mat.size()[0],mat.size()[0]);
-			for (unsigned int i=1;i<=mat.size()[0];++i)
+			Matrix out(matSize[0],matSize[0]);
+			for (unsigned int i=1;i<=matSize[0];++i)
 				out.row(i,mat.row(i));
 			return out; 
 		}
 		else{
 			std::cout<<"warning! not square matrix." << std::endl;
-			Matrix out(mat.size()[1],mat.size()[1]);
-			for (unsigned int i=1;i<=mat.size()[1];++i)
+			Matrix out(matSize[1],matSize[1]);
+			for (unsigned int i=1;i<=matSize[1];++i)
 				out.col(i,mat.col(i));
 			return out; 
 		}

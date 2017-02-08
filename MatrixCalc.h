@@ -55,6 +55,8 @@ namespace ADP
 	void disp(const Matrix& mat);
 
 	const Matrix inv(const SquareMatrix& mat);
+	void clean(Matrix& mat);
+	void clean(std::vector<double>& vec);
 	const std::vector<double> diag(const SquareMatrix& mat);
 	const std::vector<double> vecs(const SymmetricMatrix&  mat);
 	const SquareMatrix cholesky(const SymmetricMatrix&  mat);

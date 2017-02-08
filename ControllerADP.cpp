@@ -214,8 +214,9 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 
 		if(norm((*mResult)[0])<1e-10)                                                                            // convergence
 		{
-			mThetaInv=mThetaInv*0+1e10;
-			mBigV = mBigV*0;
+			mThetaInv.clean();
+			mThetaInv=mThetaInv+1e10;
+			clean(mBigV);
 			mxx.clear();
 			mIxx.clear();
 			mIxu.clear();
@@ -223,7 +224,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 			itxx = mIxx.begin();
 			itxu = mIxu.begin();
 			//mBigr.reset(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2));
-			*mBigr = *mBigr * 0;
+			mBigr->clean();
 			mADPalg->resetStep();
 		}else
 		{

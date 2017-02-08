@@ -43,12 +43,12 @@ namespace ADP
 	const std::vector<double> SymmetricMatrix::vecs() const
 	{
 		std::vector<double> vecout;
+		auto thisSize = this->size()[0];
 
-		for (unsigned int j=1; j<=this->size()[0];j++)
+		for (unsigned int j=1; j<=thisSize;j++)
 		{
 			vecout.push_back(this->operator()(j,j));
-
-			for (unsigned int i=j+1; i<=this->size()[0]; i++)
+			for (unsigned int i=j+1; i<=thisSize; i++)
 				vecout.push_back(2*(this->operator()(j,i)));
 		}
 		return vecout;

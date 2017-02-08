@@ -151,6 +151,12 @@ namespace ADP
 		return matrix;
 	}
 
+	void Matrix::clean()
+	{
+		transform(matrix.begin(), matrix.end(), matrix.begin(), [=](double i){return 0;});
+
+	}
+
 
 	const Matrix Matrix::t() const
 	{
@@ -179,14 +185,23 @@ namespace ADP
 		return *this;
 	}
 
-
-
-	const std::vector<int>  Matrix::size() const
+	const Matrix& Matrix::add(const Matrix mat) 
 	{
-		std::vector<int> out;
-		out.push_back(mncol);
-		out.push_back(mnrow);
-		return out;
+		if (this->size()[0]==mat.size()[0] && this->size()[1]==mat.size()[1])
+		{
+			transform(matrix.cbegin(), matrix.cend(), (mat.matrix).begin(), matrix.begin(), std::plus<double>());
+			return *this;
+		}
+		std::cout <<"error! different matrix size" << std::endl;
+		throw;
+	}
+
+	const std::vector<unsigned int>  Matrix::size() const
+	{
+		return std::vector<unsigned int>({mncol,mnrow});
+		//out.push_back(mncol);
+		//out.push_back(mnrow);
+		//return out;
 	}
 
 
