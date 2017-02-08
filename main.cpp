@@ -37,7 +37,7 @@ int main()
 	unsigned int n = sysA.size()[0];
 	unsigned int m = sysB.size()[0];
 	double t = 0;
-	double dt = 0.0001;
+	double dt = 0.0002;
 
 	Matrix K0({0,0.0,0},n);
 	ControllerADP<VI> myADP(Q,R,0.1, P, &mystep);

@@ -11,7 +11,7 @@ namespace ADP
 
 
 	AlgorithmVI::AlgorithmVI(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, Step* stepf, const double bound)
-		: mQ(Q), mR(R), mP0(P0), mP(P0), mbound(bound), mk(1),mStep(stepf){}
+		: mQ(&Q), mR(&R), mP0(&P0), mP(P0), mK(), mbound(bound), mk(1),mStep(stepf){}
 
 
 	std::shared_ptr<AlgorithmADP> AlgorithmVI::Creat(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, const Matrix& K0, Step* stepf, const double bound) const
@@ -23,26 +23,26 @@ namespace ADP
 	const std::vector<Matrix>& AlgorithmVI::offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N, double eps)
 	{
 		SymmetricMatrix error(mP);
-		for(mk = 1; mk<N; mk++)
+		for(unsigned mk = 1; mk<N; mk++)
 		{
 			const double step = mStep->stepOut(mk);
-			error = T(sysA) * mP + mP * sysA + mQ - mP * sysB * inv(mR) * T(sysB) * mP;
+			error = T(sysA) * mP + mP * sysA + *mQ - mP * sysB * inv(*mR) * T(sysB) * mP;
 			mP = mP + step * error;
 			if(norm(mP) > mbound || !(mP>0))
 			{
 				std::cout << "VI trial: " << mk << std::endl; 
 				mbound += 100;
-				mP=mP0;
+				mP=*mP0;
 				continue;
 			}else if(norm(error)<eps){
 				std::cout << "VI trial: " << mk << std::endl; 
-				mResult = std::vector<Matrix>({error, mP, inv(mR)*T(sysB)*mP});
+				mResult = std::vector<Matrix>({error, mP, inv(*mR)*T(sysB)*mP});
 				return  mResult;
 			}
 
 		}
 		std::cout << "reach maximum loop number" << std::endl;
-		mResult = std::vector<Matrix>({error, mP, inv(mR)*T(sysB)*mP});
+		mResult = std::vector<Matrix>({error, mP, inv(*mR)*T(sysB)*mP});
 		return  mResult;
 
 
@@ -53,24 +53,24 @@ namespace ADP
 		//std::cout << "VI loop " << mk << std::endl;
 		const double step = mStep->stepOut(mk++);
 		//std::cout << "step is " << step << std::endl;
-		const unsigned int n = mQ.size()[0];
-		auto first = vec.begin();
-		const auto last = vec.begin()+n*(n+1)/2;
-		const std::vector<double> vecH(first,last);
-		first = vec.end();
-		const std::vector<double> vecK(last,first);
-		const Matrix K(vecK,n);
-		SymmetricMatrix error(SymmetricMatrix(vecH)+mQ-T(K)*mR*K);
+		const unsigned int n = mQ->size()[0];
+		//auto first = vec.begin();
+		//const auto last = vec.begin()+n*(n+1)/2;
+		const std::vector<double> vecH(vec.begin(),vec.begin()+n*(n+1)/2);
+		//first = vec.end();
+		const std::vector<double> vecK(vec.begin()+n*(n+1)/2,vec.end());
+		mK = Matrix(vecK,n);
+		SymmetricMatrix error(SymmetricMatrix(vecH)+*mQ-T(mK)* *mR *mK);
 		//std::cout << step << std::endl;
 		mP = mP + step * error;
 
 		if(norm(mP) > mbound || !(mP>0))
 		{
 			mbound+=100;
-			mP=mP0;
+			mP= *mP0;
 		}
 
-		mResult = std::vector<Matrix>({error, mP, K}); 
+		mResult = std::vector<Matrix>({error, mP, mK}); 
 	}
 
 

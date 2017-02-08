@@ -1,20 +1,11 @@
-//#include "Matrix.h"
-//#include "Dynamical.h"
-//#include <iostream>
-//#include <math.h>
-//#include "MatrixCalc.h"
-//#include "Others.h"
 
-//namespace ADP
-//{
-
-	Dynamical::Dynamical(const SquareMatrix A, const Matrix B, inputfun input, const long double dt)
-:mA(A),mB(B),mT(0),mdt(dt),mCtrl(nullptr), mInFun(input)
-	//,mStateAll(floor(T/dt),A.size()[0],0)
+Dynamical::Dynamical(const SquareMatrix& A, const Matrix& B, inputfun input, const long double dt)
+	:mA(&A),mB(&B),mT(0),mdt(dt),mCtrl(nullptr), mInFun(input)
+	 //,mStateAll(floor(T/dt),A.size()[0],0)
 {
 	//mStateAll.insert({0,mx});
 	//mInputAll.insert({0,mu});
-	if (mA.size()[0]!=mB.size()[1])
+	if (mA->size()[0]!=mB->size()[1])
 	{
 		std::cout << "unmatched system matrices" << std::endl;
 		throw;
@@ -29,31 +20,14 @@
 	//}
 }
 
-//Dynamical::Dynamical(const SquareMatrix A, const std::vector<double> x0,  const long double dt)
-//:mA(A),mB(1,A.size()[0],0),mx(x0),mu(1,0),mT(0),mdt(dt),mCtrl(nullptr)
-////,mStateAll(floor(T/dt),A.size()[0],0)
-//{
-//mStateAll.insert({0,mx});
-//mInputAll.insert({0,mu});
-//if (mA.size()[0]!=mB.size()[1])
-//{
-//std::cout << "unmatched system matrices" << std::endl;
-//throw;
-//}
-////mStateAll.col(1,mx);
-////for(int i=0;i<=floor(T/mdt);++i){
-////mx = mx + mdt*vec(mA * mx);
-////mStateAll.col(i+1,mx);
-////}
-//}
 
-	Dynamical::Dynamical(const SquareMatrix A, const Matrix B, Controllers* controller, const long double dt)
-:mA(A),mB(B),mT(0),mdt(dt),mCtrl(controller), mInFun(nullptr)
-	//,mStateAll(floor(T/dt),A.size()[0],0)
+Dynamical::Dynamical(const SquareMatrix& A, const Matrix& B, Controllers* controller, const long double dt)
+	:mA(&A),mB(&B),mT(0),mdt(dt),mCtrl(controller), mInFun(nullptr)
+	 //,mStateAll(floor(T/dt),A.size()[0],0)
 {
 	//mStateAll.insert({0,mx});
 	//mInputAll.insert({0,mu});
-	if (mA.size()[0]!=mB.size()[1])
+	if (mA->size()[0]!=mB->size()[1])
 	{
 		std::cout << "unmatched system matrices" << std::endl;
 		throw;
@@ -73,30 +47,6 @@
 	//}
 }
 
-//const std::vector<double>& Dynamical::x(const double t, simulate = &EU) 
-//{
-//if (t<mT) return mStateAll[floor(t/mdt)];
-
-////.col(1,mx);
-//for(unsigned int i=floor(mT/mdt); i<=floor(t/mdt);++i){
-//mT += mdt;
-////if(t==50)
-////{
-////mA=SquareMatrix({-1,-0.0,3,-1});
-////}
-////if (mCtrl!=nullptr)
-//mu = *mInFun(mx,mB.size()[0],mT);
-////mu = mCtrl->input(mx,mdt,mT);
-////else (mu=0);
-//mx = mx + mdt*vec(mA * mx + mB * mu);
-////disp(mx);
-////mStateAll.col(i+1,mx);
-//mStateAll.insert({i+1,mx});
-//mInputAll.insert({i+1,mu});
-//}
-//return mx;
-
-//}
 	template <typename E>
 const std::vector<double>& Dynamical::x(const double t, const std::vector<double> x0) 
 {
@@ -121,9 +71,9 @@ const std::vector<double>& Dynamical::x(const double t, const std::vector<double
 void Dynamical::printAll() const
 {
 	std::cout<< "A is:" << std::endl;
-	disp(mA);
+	disp(*mA);
 	std::cout<< "B is:" << std::endl;
-	disp(mB);
+	disp(*mB);
 	std::cout<< "current state is:" << std::endl;
 	disp(mx);
 }
@@ -139,7 +89,7 @@ const std::vector<double> Dynamical::Run(const double t0, const std::vector<doub
 	mT = t0;
 	mx = x;
 
-	E sim(mA,mB,mdt);
+	E sim(*mA,*mB,mdt);
 	for(unsigned int i=floor(mT/mdt);i<=floor(t/mdt);++i){
 		mStateAll[i] = mx; 
 		sim.linear(mx, mCtrl, mInFun, mT);

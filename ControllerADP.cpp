@@ -1,61 +1,65 @@
 
 	template <typename T>
-	ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta,Step* stepf)
-:mn(Q.size()[0]), mm(R.size()[0]), mK0(mn,mm), mKadp(mn,mm), mQ(Q), mR(R), mP(mn), 
+ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta,Step* stepf)
+	:mn(Q.size()[0]), mm(R.size()[0]), mK0(mn,mm), mKadp(mn,mm), mQ(&Q), mR(&R), mP(mn), 
 	mdelta(delta), itx(mxx.begin()), itxx(mIxx.begin()), itxu(mIxu.begin()),
 	mThetaInv(mm*mn+mn*(mn+1)/2, mm*mn+mn*(mn+1)/2), 
 	mBigV(mm*mn+mn*(mn+1)/2,0),
 	mBigr(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2)),
-	mADPalg(nullptr)
+	mADPalg(nullptr),
+	mResult(nullptr)
 {
 	std::shared_ptr<AlgorithmADP> tem (new T());
-	mADPalg = (tem->Creat(mQ,mR,mP,mK0,stepf));
+	mADPalg = (tem->Creat(*mQ,*mR,mP,mK0,stepf));
 	//long double eps = 1e-10;
 	//mThetaInv=mThetaInv+1/eps; 
 	mThetaInv=mThetaInv+1e10;
 }
 	template <typename T>
-	ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf)
-:mn(Q.size()[0]), mm(R.size()[0]), mK0(mn,mm), mKadp(mn,mm), mQ(Q), mR(R), mP(P), 
+ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf)
+	:mn(Q.size()[0]), mm(R.size()[0]), mK0(mn,mm), mKadp(mn,mm), mQ(&Q), mR(&R), mP(P), 
 	mdelta(delta), itx(mxx.begin()), itxx(mIxx.begin()), itxu(mIxu.begin()),
 	mThetaInv(mm*mn+mn*(mn+1)/2, mm*mn+mn*(mn+1)/2), 
 	mBigV(mm*mn+mn*(mn+1)/2,0),
 	mBigr(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2)),
-	mADPalg(nullptr)
+	mADPalg(nullptr),
+	mResult(nullptr)
 {
 	std::shared_ptr<AlgorithmADP> tem (new T());
-	mADPalg = (tem->Creat(mQ,mR,mP,mK0,stepf));
+	mADPalg = (tem->Creat(*mQ,*mR,mP,mK0,stepf));
 	//long double eps = 1e-10;
 	//mThetaInv=mThetaInv+1/eps; 
 	mThetaInv=mThetaInv+1e10;
 }
 	template <typename T>
-	ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf)
-:mn(Q.size()[0]), mm(R.size()[0]), mK0(K), mKadp(K), mQ(Q), mR(R), mP(mn), 
+ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf)
+	:mn(Q.size()[0]), mm(R.size()[0]), mK0(K), mKadp(K), mQ(&Q), mR(&R), mP(mn), 
 	mdelta(delta), itx(mxx.begin()), itxx(mIxx.begin()), itxu(mIxu.begin()),
 	mThetaInv(mm*mn+mn*(mn+1)/2, mm*mn+mn*(mn+1)/2), 
 	mBigV(mm*mn+mn*(mn+1)/2,0),
 	mBigr(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2)),
-	mADPalg(nullptr)
+	mADPalg(nullptr),
+	mResult(nullptr)
 {
 
 	std::shared_ptr<AlgorithmADP> tem (new T());
-	mADPalg = (tem->Creat(mQ,mR,mP,mK0,stepf));
+	mADPalg = (tem->Creat(*mQ,*mR,mP,mK0,stepf));
 	//long double eps = 1e-10;
 	//mThetaInv=mThetaInv+1/eps; 
 	mThetaInv=mThetaInv+1e10;
 }
 
 	template <typename T>
-	ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, const Matrix& K, Step* stepf)
-:mn(Q.size()[0]), mm(R.size()[0]), mK0(K), mKadp(K), mQ(Q), mR(R), mP(P), mdelta(delta), itx(mxx.begin()), itxx(mIxx.begin()), itxu(mIxu.begin()),
+ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, const Matrix& K, Step* stepf)
+	:mn(Q.size()[0]), mm(R.size()[0]), mK0(K), mKadp(K), mQ(&Q), mR(&R), mP(P), mdelta(delta), itx(mxx.begin()), itxx(mIxx.begin()), itxu(mIxu.begin()),
 	mThetaInv(mm*mn+mn*(mn+1)/2, mm*mn+mn*(mn+1)/2), 
 	mBigV(mm*mn+mn*(mn+1)/2,0),
 	mBigr(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2)),
-	mADPalg(nullptr)
+	mADPalg(nullptr),
+	mResult(nullptr)
 {
 	std::shared_ptr<AlgorithmADP> tem (new T());
-	mADPalg = (tem->Creat(mQ,mR,mP,mK0,stepf));
+	mADPalg = (tem->Creat(*mQ,*mR,mP,mK0,stepf));
 	//long double eps = 1e-10;
 	mThetaInv=mThetaInv+1e10;
 	//mThetaInv=mThetaInv+1/eps; 
@@ -83,9 +87,9 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 
 	if(mIxu.size()==0) 
 	{
-		mIxu.push_back(-2*dt*vec(kProd(x,mR*u)));
+		mIxu.push_back(-2*dt*vec(kProd(x,*mR*u)));
 		++itxu;
-	} else mIxu.push_back(mIxu.back()-2*dt*vec(kProd(x,mR*u)));
+	} else mIxu.push_back(mIxu.back()-2*dt*vec(kProd(x,*mR*u)));
 
 	if (t > mdelta && mxx.size()>1 && mIxx.size()>1 && mIxu.size()>1){
 		//std::cout << mdelta << std::endl;
@@ -107,14 +111,14 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 
 
 		// new one
-		std::vector<double> vec0 = (mxx.back() - *itx)/(x*x);
-		std::vector<double> vec1 = (mIxx.back() - *itxx)/(x*x);
-		std::vector<double> vec2 = (mIxu.back() - *itxu)/(x*x);
+		//std::vector<double> vec0 = (mxx.back() - *itx)/(x*x);
+		//std::vector<double> vec1 = (mIxx.back() - *itxx)/(x*x);
+		//std::vector<double> vec2 = (mIxu.back() - *itxu)/(x*x);
 
-		std::vector<Matrix> optResult = mADPalg->online(vec0, vec1, vec2, mBigr, mThetaInv, mBigV);
+		mResult = &mADPalg->online((mxx.back() - *itx)/(x*x), (mIxx.back() - *itxx)/(x*x), (mIxu.back() - *itxu)/(x*x), mBigr, mThetaInv, mBigV);
 		//double err= optResult[0].F();
-		mP = optResult[1];
-		mKadp= optResult[2];
+		mP = (*mResult)[1];
+		mKadp= (*mResult)[2];
 		//disp(mP);
 		//mBigV = vec(mThetaInv * *mBigr * vec(mP));
 
@@ -153,9 +157,9 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 
 	if(mIxu.size()==0) 
 	{
-		mIxu.push_back(2*dt*vec(kProd(x,mR*u)));
+		mIxu.push_back(2*dt*vec(kProd(x,*mR*u)));
 		++itxu;
-	} else mIxu.push_back(mIxu.back()+2*dt*vec(kProd(x,mR*u)));
+	} else mIxu.push_back(mIxu.back()+2*dt*vec(kProd(x,*mR*u)));
 
 
 
@@ -193,30 +197,33 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 
 
 		// this is the new one
-		std::vector<double> vec0 = (mxx.back() - *itx)/(x*x);
-		std::vector<double> vec1 = (mIxx.back() - *itxx)/(x*x);
-		std::vector<double> vec2 = (mIxu.back() - *itxu)/(x*x);
+		//std::vector<double> vec0 = (mxx.back() - *itx)/(x*x);
+		//std::vector<double> vec1 = (mIxx.back() - *itxx)/(x*x);
+		//std::vector<double> vec2 = (mIxu.back() - *itxu)/(x*x);
 
-		std::vector<Matrix> optResult = mADPalg->online(vec0, vec1, vec2, mBigr, mThetaInv, mBigV);
-		double err= norm(optResult[0]);
-		mP = optResult[1];
-		mKadp= optResult[2];
+		//std::vector<Matrix> optResult = mADPalg->online(vec0, vec1, vec2, mBigr, mThetaInv, mBigV);
+		//std::vector<Matrix> optResult = mADPalg->online((mxx.back() - *itx)/(x*x), (mIxx.back() - *itxx)/(x*x), (mIxu.back() - *itxu)/(x*x), mBigr, mThetaInv, mBigV);
+		mResult = &mADPalg->online((mxx.back() - *itx)/(x*x), (mIxx.back() - *itxx)/(x*x), (mIxu.back() - *itxu)/(x*x), mBigr, mThetaInv, mBigV);
+		//double err= norm(optResult[0]);
+		mP = (*mResult)[1];
+		mKadp= (*mResult)[2];
 		//mBigV = vec(mThetaInv * *mBigr * vec(mP)); // half online
 
 		//std::cout << "the error is " << err << std::endl;
 		//mP.disp();
 
-		if(err<1e-10)                                                                            // convergence
+		if(norm((*mResult)[0])<1e-10)                                                                            // convergence
 		{
 			mThetaInv=mThetaInv*0+1e10;
-			mBigV = mBigV * 0;
+			mBigV = mBigV*0;
 			mxx.clear();
 			mIxx.clear();
 			mIxu.clear();
 			itx = mxx.begin();
 			itxx = mIxx.begin();
 			itxu = mIxu.begin();
-			mBigr.reset(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2));
+			//mBigr.reset(new Matrix(mn*mn,mm*mn+mn*(mn+1)/2));
+			*mBigr = *mBigr * 0;
 			mADPalg->resetStep();
 		}else
 		{
@@ -248,7 +255,8 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 	template <typename T>
 const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
 {	
-	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
+	double mag = 1/(norm(x)+10);
+	std::vector<double> u = vec(-mKadp*x)+noif(mag,mm,t);
 	learner(x,u,dt,t);
 
 	return u;
@@ -258,11 +266,12 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 	template <>
 const std::vector<double> ControllerADP<AlgorithmPI>::input(const std::vector<double>& x, const double dt,  const double t, noise noif)
 {	
-	std::vector<double> u = vec(-mKadp*x)+noif(mm,t);
+	double mag = 1/(norm(x)+10);
+	std::vector<double> u = vec(-mKadp*x)+noif(mag,mm,t);
 	learner(x,u,dt,t);
 
 	if (dt<1e-20) 
-		return noif(mm,t);
+		return noif(mag,mm,t);
 
 	return u;
 
@@ -275,13 +284,13 @@ void ControllerADP<T>::dispAll() const
 {
 	//std::cout <<"what is in mxx" << std::endl;
 	//for (auto itx = mxx.begin();itx!=mxx.end();++itx)
-		//disp(*itx);
+	//disp(*itx);
 	//std::cout <<"what is in mIxx" << std::endl;
 	//for (auto itxx = mIxx.begin();itxx!=mIxx.end();++itxx)
-		//disp(*itxx);
+	//disp(*itxx);
 	//std::cout <<"what is in mIxu" << std::endl;
 	//for (auto itxu = mIxu.begin();itxu!=mIxu.end();++itxu)
-		//disp(*itxu);
+	//disp(*itxu);
 	std::cout <<"what is Kadp" << std::endl;
 	disp(mKadp);
 	std::cout <<"what is K0" << std::endl;

@@ -17,7 +17,7 @@ namespace ADP
 	{
 		public:
 
-			AlgorithmVI(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, Step* stepf, const double bound=10);
+			AlgorithmVI(const SymmetricMatrix& Q, const SymmetricMatrix& R, const SymmetricMatrix& P0, Step* stepf, const double bound=1000);
 			AlgorithmVI(): mQ(), mR(), mP0(), mP(), mbound(0), mk(1), mStep(nullptr){};
 			virtual const std::vector<Matrix>& offline(const SquareMatrix& sysA, const Matrix& sysB, const unsigned int N=20000, const double eps=0.001);
 			virtual const std::vector<Matrix>& online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV);
@@ -26,10 +26,11 @@ namespace ADP
 			virtual void disp() const;
 			virtual ~AlgorithmVI(){};
 		private:
-			SymmetricMatrix mQ;
-			SymmetricMatrix mR;
-			SymmetricMatrix mP0;
+			const SymmetricMatrix* mQ;
+			const SymmetricMatrix* mR;
+			const SymmetricMatrix* mP0;
 			SymmetricMatrix mP;
+			Matrix mK;
 			double mbound;
 			unsigned int mk;
 			std::vector<Matrix> mResult;

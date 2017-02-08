@@ -13,7 +13,7 @@
 
 namespace ADP{
 
-	const std::vector<double> sinusoidal(const unsigned int m, const double t);
+	const std::vector<double> sinusoidal(const double magnitude, const unsigned int m, const double t);
 	const std::vector<double> linInput(const std::vector<double>& x, const int m, const double t=0);
 
 }

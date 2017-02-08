@@ -32,10 +32,10 @@ namespace ADP{
 			std::list<std::vector<double>> mIxu;
 			unsigned int mn;
 			unsigned int mm;
-			Matrix mK0;
+			const Matrix mK0;
 			Matrix mKadp;
-			SymmetricMatrix mQ;
-			SymmetricMatrix mR;
+			const SymmetricMatrix* mQ;
+			const SymmetricMatrix* mR;
 			SymmetricMatrix mP;
 			double mdelta;
 			std::list<std::vector<double>>::iterator itx;
@@ -46,6 +46,7 @@ namespace ADP{
 			//std::shared_ptr<Matrix> mBigTheta;
 			std::shared_ptr<Matrix> mBigr;
 			std::shared_ptr<AlgorithmADP> mADPalg;
+			const std::vector<Matrix>* mResult;
 	};
 #include "ControllerADP.cpp"
 }
