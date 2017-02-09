@@ -32,6 +32,8 @@ namespace ADP
 			unsigned int mncol;
 			unsigned int mnrow;
 			//std::vector<unsigned int> msize;
+			//std::vector<double> mcol;
+			//std::vector<double> mrow;
 			std::vector<double> matrix;
 	};
 

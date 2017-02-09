@@ -195,7 +195,9 @@ namespace ADP
 		Matrix matout(rhsSize[0],lhsSize[1]);
 		for (unsigned int i=1;i<=lhsSize[1];i++)
 			for (unsigned int j=1;j<=rhsSize[0];j++)
-				matout(i,j) = lhs_mat.row(i)*rhs_mat.col(j);
+				for (unsigned int k=1;k<=lhsSize[0];k++)
+				//matout(i,j) = lhs_mat.row(i)*rhs_mat.col(j);
+					matout(i,j) += lhs_mat(i,k) * rhs_mat(k,j);
 		return matout;
 	}
 
@@ -207,9 +209,11 @@ namespace ADP
 
 	const Matrix prod(const std::vector<double> & input1, const std::vector<double> & input2)
 	{
-		Matrix matOut(input2.size(),input1.size());
-		for (unsigned int i=1;i<=input1.size();i++)
-			for (unsigned int j=1;j<=input2.size();j++)
+		auto size1 = input1.size();
+		auto size2 = input2.size();
+		Matrix matOut(size2,size1);
+		for (unsigned int i=1;i<=size1;i++)
+			for (unsigned int j=1;j<=size2;j++)
 				matOut(i,j) = input1[i-1]*input2[j-1];
 
 		return matOut;
@@ -226,12 +230,7 @@ namespace ADP
 			for (unsigned int j=1;j<=size1[0];j++)
 				for (unsigned int k=1;k<=size2[1];k++)
 					for (unsigned int n=1;n<=size2[0];n++)
-					{
-						const unsigned int left = (i-1)*size2[1]+k;
-						const unsigned int right = (j-1)*size2[0]+n;
-						matOut(left,right) = mat1(i,j)*mat2(k,n);
-					}
-
+						matOut((i-1)*size2[1]+k,(j-1)*size2[0]+n) = mat1(i,j)*mat2(k,n);
 		return matOut;
 
 	}
