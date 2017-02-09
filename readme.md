@@ -22,15 +22,17 @@ ALgorithmADP.h
 
 ```c++
 ControllerADP.h
+  ControllerVI.h
+  ControllerPI.h
 ```
 
 #### Different matrix classes and operations
 
 ```c++
 Matrix.h
-SquareMatrix.h
-SymmetricMatrix.h
-Diagonal.h
+  SquareMatrix.h
+    SymmetricMatrix.h
+      Diagonal.h
 MatrixCalc.h
 ```
 
