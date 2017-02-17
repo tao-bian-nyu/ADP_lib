@@ -27,11 +27,11 @@ namespace ADP{
 			virtual ~ControllerADP(){};
 			virtual void dispAll() const;
 		private:
+			unsigned int mn;
+			unsigned int mm;
 			std::list<std::vector<double>> mxx;
 			std::list<std::vector<double>> mIxx;
 			std::list<std::vector<double>> mIxu;
-			unsigned int mn;
-			unsigned int mm;
 			const Matrix mK0;
 			Matrix mKadp;
 			const SymmetricMatrix* mQ;

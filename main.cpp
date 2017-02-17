@@ -62,12 +62,12 @@ int main()
 
 	//// when model is known
 	 ////offline VI
-	//std::shared_ptr<AlgorithmADP> myalg(new AlgorithmVI(Q,R,P,&mystep));
-	//std::vector<Matrix> result = myalg->offline(sysA,sysB);
+	std::shared_ptr<AlgorithmADP> myalg(new AlgorithmVI(Q,R,P,&mystep));
+	std::vector<Matrix> result = myalg->offline(sysA,sysB);
 
-	//result[0].disp();
-	//result[1].disp();
-	//result[2].disp();
+	result[0].disp();
+	result[1].disp();
+	result[2].disp();
 
 	
 	 ////offline PI

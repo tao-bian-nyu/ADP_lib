@@ -25,6 +25,10 @@ ControllerADP<T>::ControllerADP(const SymmetricMatrix& Q, const SymmetricMatrix&
 	mADPalg(nullptr),
 	mResult(nullptr)
 {
+	R.disp();
+	//std::cout << R.size()[0] << ',' << R.size()[1] << std::endl;
+	//mR->disp();
+	//std::cout << mR->size()[0] << ',' << mR->size()[1] << std::endl;
 	std::shared_ptr<AlgorithmADP> tem (new T());
 	mADPalg = (tem->Creat(*mQ,*mR,mP,mK0,stepf));
 	//long double eps = 1e-10;
@@ -81,9 +85,6 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 		++itxx;
 	}
 	else mIxx.push_back(mIxx.back()-dt*vec(kProd(x,x)));
-
-
-
 
 	if(mIxu.size()==0) 
 	{
@@ -142,6 +143,10 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 	template <typename T>
 const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t)
 {
+			//std::cout << u.size()  << std::endl;
+			//std::cout << mQ->size()[0]  << std::endl;
+			//std::cout << mR->size()[0]  << std::endl;
+			mR->disp();
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vec(kProd(x,x)));
@@ -258,7 +263,10 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 {	
 	double mag = 1/(norm(x)+10);
 	std::vector<double> u = vec(-mKadp*x)+noif(mag,mm,t);
-	learner(x,u,dt,t);
+	Matrix K = learner(x,u,dt,t);
+
+	std::vector<double> vecK = vec(K);
+	std::cout << vecK.size() << "jsahfadlskjhfalksdjhfkaljhfklsdjhf" << std::endl;
 
 	return u;
 
