@@ -7,7 +7,7 @@ SUFFIXES :=
 
 CC = gcc
 CPP = g++
-CPPFLAGS = -std=c++11
+CPPFLAGS = -fPIC -std=c++11
 LUA = luajit
 LIBLDIR= ../
 Forall = $(LIBLDIR)RK.h $(LIBLDIR)EU.h $(LIBLDIR)Others.h $(LIBLDIR)Step.h $(LIBLDIR)Controllers.h $(LIBLDIR)ControllerADP.h $(LIBLDIR)Dynamical.h $(LIBLDIR)AlgorithmRLS.h $(LIBLDIR)AlgorithmADP.h $(LIBLDIR)AlgorithmPI.h $(LIBLDIR)AlgorithmVI.h $(LIBLDIR)MatrixCalc.h $(LIBLDIR)Matrix.h $(LIBLDIR)SquareMatrix.h $(LIBLDIR)SymmetricMatrix.h $(LIBLDIR)Diagonal.h
@@ -40,7 +40,7 @@ libControllerVI.o: libControllerVI.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c libControllerVI.cpp
 
 lib: RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o libControllerVI.o
-	$(CPP) $(CPPFLAGS) -shared -fPIC -o libControllerVI.so  RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o libControllerVI.o
+	$(CPP) $(CPPFLAGS) -shared -o libControllerVI.so  RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o libControllerVI.o
 
 clean:
 	rm -f *.o
