@@ -14,6 +14,8 @@ namespace ADP
 	Matrix::Matrix(const unsigned int ncol, const unsigned int nrow, const double val)
 		:mncol(ncol),
 		mnrow(nrow),
+		//mcol(ncol,0),
+		//mrow(nrow,0),
 		matrix(ncol*nrow,0)
 	{
 		for (auto it=matrix.begin();it!=matrix.end();++it){*it=val;}

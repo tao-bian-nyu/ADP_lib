@@ -146,7 +146,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 			//std::cout << u.size()  << std::endl;
 			//std::cout << mQ->size()[0]  << std::endl;
 			//std::cout << mR->size()[0]  << std::endl;
-			mR->disp();
+			//mR->disp();
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vec(kProd(x,x)));
@@ -266,7 +266,6 @@ const std::vector<double> ControllerADP<T>::input(const std::vector<double>& x, 
 	Matrix K = learner(x,u,dt,t);
 
 	std::vector<double> vecK = vec(K);
-	std::cout << vecK.size() << "jsahfadlskjhfalksdjhfkaljhfklsdjhf" << std::endl;
 
 	return u;
 

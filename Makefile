@@ -7,11 +7,10 @@ SUFFIXES :=
 
 CC = gcc
 CPP = g++
-CPPFLAGS = -std=c++11
+CPPFLAGS = -Wall -std=c++11
 Forall = RK.h EU.h Others.h Step.h Controllers.h ControllerADP.h Dynamical.h AlgorithmRLS.h AlgorithmADP.h AlgorithmPI.h AlgorithmVI.h MatrixCalc.h Matrix.h SquareMatrix.h SymmetricMatrix.h Diagonal.h
 
-all: ADPsolver clean
-myLua: lib clean 
+all: ADPsolver clean #Run 
 
 Matrix.o: Matrix.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c Matrix.cpp
@@ -38,17 +37,13 @@ RK.o: RK.cpp $(Forall)
 EU.o: EU.cpp $(Forall)
 	$(CPP) $(CPPFLAGS) -c EU.cpp
 
-libControllerVI.o: libControllerVI.cpp $(Forall)
-	$(CPP) $(CPPFLAGS) -c libControllerVI.cpp
 
 ADPsolver: RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
 	$(CPP) $(CPPFLAGS) -o ADPsolver RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o main.o
 
-#lib: 
-	#g++ -std=c++11 -shared -fPIC -o libControllerVI.so libControllerVI.cpp ControllerADP.cpp
-
-lib: RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o libControllerVI.o
-	$(CPP) $(CPPFLAGS) -shared -fPIC -o libControllerVI.so  RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o SymmetricMatrix.o SquareMatrix.o Matrix.o MatrixCalc.o libControllerVI.o
-
 clean:
 	rm -f *.o
+
+Run: 
+	./ADPsolver
+

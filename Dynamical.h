@@ -32,10 +32,10 @@ namespace ADP
 			std::unordered_map<int,std::vector<double>> mInputAll;                  // all the input are in a Hashtable
 			std::vector<double> mx;                                        // current state
 			std::vector<double> mu;                                     // current input
-			Controllers* mCtrl;                  // pointer to controller object
-			inputfun mInFun;                     // pointer to controller function 
 			double mT;                            // current time
 			double mdt;                      // simulation time
+			Controllers* mCtrl;                  // pointer to controller object
+			inputfun mInFun;                     // pointer to controller function 
 			Dynamical(const Dynamical&);    // a dynamical system is unique, cannot be copied  
 			const Dynamical& operator=(const Dynamical&);   // a dynamical system is unique, cannot be assigned 
 			template <typename E>
