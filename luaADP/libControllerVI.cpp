@@ -74,10 +74,7 @@ namespace ADP{
 		//ControllerVI* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf=nullptr){
 		//return new ControllerVI(Q, R, delta, P, stepf);
 		//}
-
-		double* ControllerVI_learner(ControllerVI* self, const double* x, const double* u, const int n, const int m, const double dt, const double t=0){
-			std::vector<double> xVec(x, x + n);
-			std::vector<double> uVec(u, u + m);
+double* ControllerVI_learner(ControllerVI* self, const double* x, const double* u, const int n, const int m, const double dt, const double t=0){ std::vector<double> xVec(x, x + n); std::vector<double> uVec(u, u + m);
 			//disp(xVec);
 			//disp(uVec);
 			//std::cout << dt << ',' << t << std::endl;
@@ -89,7 +86,6 @@ namespace ADP{
 			//disp(K);
 			std::vector<double> vecK = vec(K);
 			//disp(vecK)
-			std::cout << vecK.size()  << std::endl;
 			double* vecIt = new double[vecK.size()];
 			std::copy(vecK.begin(), vecK.end(), vecIt);
 			//std::cout << vecIt << std::endl;

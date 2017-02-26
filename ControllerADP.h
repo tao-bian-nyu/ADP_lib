@@ -34,8 +34,8 @@ namespace ADP{
 			std::list<std::vector<double>> mIxu;
 			const Matrix mK0;
 			Matrix mKadp;
-			const SymmetricMatrix* mQ;
-			const SymmetricMatrix* mR;
+			const SymmetricMatrix mQ;
+			const SymmetricMatrix mR;
 			SymmetricMatrix mP;
 			double mdelta;
 			std::list<std::vector<double>>::iterator itx;

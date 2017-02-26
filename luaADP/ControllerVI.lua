@@ -16,12 +16,12 @@ void ControllerVI_dispAll(ControllerVI* self);
 void ControllerVI_delete(ControllerVI* self);
 void free(double*);
 ]]
-controllerVI = ffi.load('ControllerVI.so')
+controllerVI = ffi.load('libControllerVI.so')
 
-controllerVI_index = {}
+controllerVI_index = {
 	--Input = controllerVI.ControllerVI_input,
 	--Learner = controllerVI.ControllerVI_learner
---}
+}
 --controllerVI_mt = ffi.metatype('ControllerVI', {
 	--__index = controllerVI_index
 --})
@@ -38,7 +38,7 @@ end
 
 function controllerVI_index.learn(self,x,u,n,m,dt,t)
 	--local name = controllerVI.ControllerVI_learner(...)
-	local name= {super2 = controllerVI.ControllerVI_learner(self.super,x,u,n,m,dt,t)}
-	ffi.gc(name.super2, C.free)
-	return name.super2
+	super2 = controllerVI.ControllerVI_learner(self.super,x,u,n,m,dt,t)
+	ffi.gc(super2, C.free)
+	return super2
 end
