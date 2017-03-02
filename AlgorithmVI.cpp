@@ -51,8 +51,22 @@ namespace ADP
 	void AlgorithmVI::onlineI(const std::vector<double>&  vec)
 	{
 		//std::cout << "VI loop " << mk << std::endl;
-		const double step = mStep->stepOut(mk++);
-		//std::cout << "step is " << step << std::endl;
+		//ADP::disp(vec);
+		double step = 0;
+		if (mStep==nullptr)
+			step = 1.0/(100 + mk++);
+		else
+			step = mStep->stepOut(mk++);
+		//
+		////
+		////
+		//
+		// add new term. if mStep is nullptr, use default step function; otherwise use mStep;
+		//
+		//
+		//
+		//
+		std::cout << "step is " << step << std::endl;
 		const unsigned int n = mQ->size()[0];
 		//auto first = vec.begin();
 		//const auto last = vec.begin()+n*(n+1)/2;
@@ -61,8 +75,8 @@ namespace ADP
 		const std::vector<double> vecK(vec.begin()+n*(n+1)/2,vec.end());
 		mK = Matrix(vecK,n);
 		SymmetricMatrix error(SymmetricMatrix(vecH)+*mQ-T(mK)* *mR *mK);
-		//std::cout << step << std::endl;
 		mP = mP + step * error;
+		ADP::disp(error);
 
 		if(norm(mP) > mbound || !(mP>0))
 		{
@@ -81,17 +95,23 @@ namespace ADP
 
 	const std::vector<Matrix>& AlgorithmVI::online(const std::vector<double>& vec0, const std::vector<double>& vec1, const std::vector<double>& vec2, std::shared_ptr<Matrix> mBigr, SymmetricMatrix& mThetaInv, std::vector<double>& mBigV)
 	{
+		//ADP::disp(vec1);
+		//ADP::disp(vec2);
+		//ADP::disp(vec0);
 		std::vector<double> phi;
 		phi.reserve(vec1.size() + vec2.size());
 		phi = vec1;
 		phi.insert(phi.end(), vec2.begin(), vec2.end());
 
+		//ADP::disp(phi);
 		//*mBigr= *mBigr + prod(phi,vec0);// half online case
 		mThetaInv = mThetaInv - 1 / (1 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi);
 		//mThetaInv =  1/0.9* ( mThetaInv - 1 / (0.9 + double(T(phi)*mThetaInv*phi)) * mThetaInv * phi * T(mThetaInv * phi));   // discounted
 		*mBigr= *mBigr + mThetaInv*phi*T(vec0) - mThetaInv*phi*T(phi)* *mBigr;  // online case;
 		mBigV = vec(*mBigr * vec(mP));
 		//mBigV = mBigV + (vec0*vec(mP) - mBigV * phi)* vec(mThetaInv * phi);// half online case
+
+		//ADP::disp(mBigV);
 
 		onlineI(mBigV);
 		return mResult;

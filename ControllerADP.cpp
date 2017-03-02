@@ -141,8 +141,9 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 	template <typename T>
 const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std::vector<double>& u, const double dt, const double t)
 {
-        mR.disp();
-        mQ.disp();
+        //mR.disp();
+        //mQ.disp();
+	//disp(x);
 	if(mxx.size()==0) 
 	{
 		mxx.push_back(vec(kProd(x,x)));
@@ -204,7 +205,13 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 
 		//std::vector<Matrix> optResult = mADPalg->online(vec0, vec1, vec2, mBigr, mThetaInv, mBigV);
 		//std::vector<Matrix> optResult = mADPalg->online((mxx.back() - *itx)/(x*x), (mIxx.back() - *itxx)/(x*x), (mIxu.back() - *itxu)/(x*x), mBigr, mThetaInv, mBigV);
+		//mADPalg->disp();
+		//ADP::disp((mxx.back() - *itx)/(x*x));
+		//ADP::disp((mIxu.back() - *itxu)/(x*x));
+		//ADP::disp((mIxx.back() - *itxx)/(x*x));
 		mResult = &mADPalg->online((mxx.back() - *itx)/(x*x), (mIxx.back() - *itxx)/(x*x), (mIxu.back() - *itxu)/(x*x), mBigr, mThetaInv, mBigV);
+		//mResult = &mADPalg->online((mxx.back() - *itx), (mIxx.back() - *itxx), (mIxu.back() - *itxu), mBigr, mThetaInv, mBigV);
+		//std::cout << mdelta << std::endl;
 		//double err= norm(optResult[0]);
 		mP = (*mResult)[1];
 		mKadp= (*mResult)[2];

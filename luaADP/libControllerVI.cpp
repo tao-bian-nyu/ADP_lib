@@ -31,8 +31,10 @@ namespace ADP{
 			SymmetricMatrix Q({1,0,0,1,0,1});
 			SymmetricMatrix P(Q*0+0.01);
 			SymmetricMatrix R(1,1);
-			Step mystep(1,10,1);
-			return new ControllerVI(Q, R, 0.1, P, &mystep);
+			//std::shared_ptr<Step> mystep(new Step(1,10,1));
+			//Step* mystep = new Step(1,10,1);
+			return new ControllerVI(Q, R, 0.1, P);
+			//return new ControllerVI(Q, R, 0.1, P, mystep);
 		}
 		//ControllerADP<AlgorithmVI>* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf=nullptr){
 		//return new ControllerADP<AlgorithmVI>(Q, R, delta, K, stepf);
@@ -80,7 +82,7 @@ double* ControllerVI_learner(ControllerVI* self, const double* x, const double* 
 			//std::cout << dt << ',' << t << std::endl;
 			//std::vector<double> xVec({1,2,3});
 			//std::vector<double> uVec({1});
-			std::cout << uVec.size()  << std::endl;
+			//std::cout << uVec.size()  << std::endl;
 			//disp(xVec);
 			Matrix K = self->learner(xVec, uVec, dt, t);
 			//disp(K);
@@ -96,6 +98,7 @@ double* ControllerVI_learner(ControllerVI* self, const double* x, const double* 
 			self->dispAll();
 		}	
 		void ControllerVI_delete(ControllerVI* self){
+
 			delete self; 
 		}
 
