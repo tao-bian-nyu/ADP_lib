@@ -26,7 +26,14 @@ t = 0
 --for i = 1,5 do
 for i = 1,5000000 do
 	--u = -matrix.mul(K,x)
-	u = -K[1]*p - K[2]*v - K[3]*a + math.sin(t)
+	if i==1 then
+		u = -K[1]*p - K[2]*v - K[3]*a 
+	else
+	        u = -K[0]*p - K[1]*v - K[2]*a
+	end
+
+	u = u + math.sin(t)
+
 	dp = (-0.1*p + v) * dt
 	dv = (-0.1*v + a)*dt
 	da =  (-0.1 * a + u)*dt
@@ -38,7 +45,7 @@ for i = 1,5000000 do
 	--print(v)
 	--print(a)
 
-	Kadp = control:learn(ffi.new("double[3]", x),ffi.new("double[1]", u), 3, 1, dt,t)
+	K = control:learn(ffi.new("double[3]", x),ffi.new("double[1]", u), 3, 1, dt,t)
 	--print(Kadp[1])
 	--print(Kadp[2])
 	--print(Kadp[3])
