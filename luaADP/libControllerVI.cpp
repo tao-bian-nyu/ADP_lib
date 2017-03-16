@@ -27,13 +27,14 @@ namespace ADP{
 		//return new ControllerADP<AlgorithmVI>(Q, R, delta, stepf);
 		//}
 		ControllerVI* ControllerVI_new(){
-			std::cout << "this is a test" << std::endl;
-			SymmetricMatrix Q({1,0,0,1,0,1});
+			//SymmetricMatrix Q({1,0,0,1,0,1});
+			SymmetricMatrix Q(1,20);
 			SymmetricMatrix P(Q*0+0.01);
 			SymmetricMatrix R(1,1);
+			std::cout << "this is a test" << std::endl;
 			//std::shared_ptr<Step> mystep(new Step(1,10,1));
 			//Step* mystep = new Step(1,10,1);
-			return new ControllerVI(Q, R, 0.1, P);
+			return new ControllerVI(Q, R, 0.010, P);
 			//return new ControllerVI(Q, R, 0.1, P, mystep);
 		}
 		//ControllerADP<AlgorithmVI>* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf=nullptr){
