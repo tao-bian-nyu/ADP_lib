@@ -44,15 +44,18 @@ Dynamical.h
 
 How to use:
 -----------------
-A demo is provided in
+A simple demo is provided in
 ```c++
-main.h
+main.cpp
 ```
+An application of ADPlib in computer games can be found at: https://github.com/lyokka/ADP_lib/tree/master/ADPgame
+
 #### Instruction for \*nix systems:
 ```bash
 make all
 ./ADPsolver
 ```
+
 Future work:
 -----------------
 1. discrete-time ADP
