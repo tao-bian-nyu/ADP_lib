@@ -26,16 +26,14 @@ namespace ADP{
 		//ControllerADP<AlgorithmVI>* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, Step* stepf=nullptr){
 		//return new ControllerADP<AlgorithmVI>(Q, R, delta, stepf);
 		//}
-		ControllerVI* ControllerVI_new(){
-			std::cout << "this is a test" << std::endl;
-			SymmetricMatrix Q({1,0,0,1,0,1});
-			SymmetricMatrix P(Q*0+0.01);
-			SymmetricMatrix R(1,1);
-			//std::shared_ptr<Step> mystep(new Step(1,10,1));
-			//Step* mystep = new Step(1,10,1);
-			return new ControllerVI(Q, R, 0.1, P);
-			//return new ControllerVI(Q, R, 0.1, P, mystep);
-		}
+		//ControllerVI* ControllerVI_new(){
+		//std::cout << "this is a test" << std::endl;
+		//SymmetricMatrix Q({1,0,0,1,0,1});
+		//SymmetricMatrix P(Q*0+0.01);
+		//SymmetricMatrix R(1,1.0);
+		//Step mystep(1,10,1);
+		//return new ControllerVI(Q, R, 0.1, P, &mystep);
+		//}
 		//ControllerADP<AlgorithmVI>* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const Matrix& K, Step* stepf=nullptr){
 		//return new ControllerADP<AlgorithmVI>(Q, R, delta, K, stepf);
 		//}
@@ -57,40 +55,33 @@ namespace ADP{
 
 
 		//std::vector LuaScript::getVector(const std::string& name) {
-		//std::vector<double> v;
-		//lua_getglobal(L, name.c_str());
-		//if(lua_isnil(L, -1)) {
-		//return std::vector();
-		//}
-		//lua_pushnil(L);
-		//while(lua_next(L, -2)) {
-		//v.push_back((double)lua_tonumber(L, -1));
-		//lua_pop(L, 1);
+			//std::vector<double> v;
+			//lua_getglobal(L, name.c_str());
+			//if(lua_isnil(L, -1)) {
+				//return std::vector();
+			//}
+			//lua_pushnil(L);
+			//while(lua_next(L, -2)) {
+				//v.push_back((double)lua_tonumber(L, -1));
+				//lua_pop(L, 1);
+			//}
+
+			//double n = lua_gettop(L);
+			//lua_pop(L, n);
+			//return v;
 		//}
 
-		//double n = lua_gettop(L);
-		//lua_pop(L, n);
-		//return v;
-		//}
+		ControllerVI* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf=nullptr){
+			return new ControllerVI(Q, R, delta, P, stepf);
+		}
 
-		//ControllerVI* ControllerVI_new(const SymmetricMatrix& Q, const SymmetricMatrix& R, const double delta, const SymmetricMatrix& P, Step* stepf=nullptr){
-		//return new ControllerVI(Q, R, delta, P, stepf);
-		//}
-double* ControllerVI_learner(ControllerVI* self, const double* x, const double* u, const int n, const int m, const double dt, const double t=0){ std::vector<double> xVec(x, x + n); std::vector<double> uVec(u, u + m);
-			//disp(xVec);
-			//disp(uVec);
-			//std::cout << dt << ',' << t << std::endl;
-			//std::vector<double> xVec({1,2,3});
-			//std::vector<double> uVec({1});
-			//std::cout << uVec.size()  << std::endl;
-			//disp(xVec);
+		const double* ControllerVI_learner(ControllerVI* self, const double* x, const double* u, const double dt, const double t=0){
+			std::vector<double> xVec(x, x + sizeof x / sizeof x[0]);
+			std::vector<double> uVec(u, u + sizeof u / sizeof u[0]);
 			Matrix K = self->learner(xVec, uVec, dt, t);
-			//disp(K);
 			std::vector<double> vecK = vec(K);
-			//disp(vecK)
 			double* vecIt = new double[vecK.size()];
 			std::copy(vecK.begin(), vecK.end(), vecIt);
-			//std::cout << vecIt << std::endl;
 			return vecIt;
 		}
 
@@ -98,7 +89,6 @@ double* ControllerVI_learner(ControllerVI* self, const double* x, const double* 
 			self->dispAll();
 		}	
 		void ControllerVI_delete(ControllerVI* self){
-
 			delete self; 
 		}
 

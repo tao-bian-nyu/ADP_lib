@@ -45,5 +45,5 @@ lib: RK.o EU.o Others.o AlgorithmRLS.o AlgorithmPI.o AlgorithmVI.o Diagonal.o Sy
 clean:
 	rm -f *.o
 Run: 
-	$(LUA) main.lua
+	$(LUA) test.lua
 

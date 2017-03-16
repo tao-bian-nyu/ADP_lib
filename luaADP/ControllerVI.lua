@@ -1,3 +1,4 @@
+
 -- Lua part binding, load necessary interface.
 ffi = require('ffi')
 C = ffi.C
@@ -15,8 +16,7 @@ void ControllerVI_dispAll(ControllerVI* self);
 void ControllerVI_delete(ControllerVI* self);
 void free(double*);
 ]]
---controllerVI = ffi.load('libControllerVI.so')
-controllerVI = ffi.load('luaADP/libControllerVI.so')
+controllerVI = ffi.load('libControllerVI.so')
 
 controllerVI_index = {
 	--Input = controllerVI.ControllerVI_input,
