@@ -92,7 +92,7 @@ const Matrix& ControllerADP<AlgorithmPI>::learner(const std::vector<double>& x, 
 
 	if (t > mdelta && mxx.size()>1 && mIxx.size()>1 && mIxu.size()>1){
 		//std::cout << mdelta << std::endl;
-		mdelta +=500*dt;
+		mdelta +=10*dt;
 		itx = mxx.erase(itx);
 		itxx = mIxx.erase(itxx);
 		itxu = mIxu.erase(itxu);
@@ -167,7 +167,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 
 	if (t > mdelta && mxx.size()>1 && mIxx.size()>1 && mIxu.size()>1){
 		//std::cout << mdelta << std::endl;
-		mdelta += 500 * dt;
+		mdelta += 10 * dt;
 		itx = mxx.erase(itx);
 		itxx = mIxx.erase(itxx);
 		itxu = mIxu.erase(itxu);
@@ -220,7 +220,7 @@ const Matrix& ControllerADP<T>::learner(const std::vector<double>& x, const std:
 		//std::cout << "the error is " << err << std::endl;
 		//mP.disp();
 
-		if(norm((*mResult)[0])<1e-10)                                                                            // convergence
+		if(norm((*mResult)[0])<1e-5)                                                                            // convergence
 		{
 			mThetaInv.clean();
 			mThetaInv=mThetaInv+1e10;

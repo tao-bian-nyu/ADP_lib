@@ -54,7 +54,8 @@ namespace ADP
 		//ADP::disp(vec);
 		double step = 0;
 		if (mStep==nullptr)
-			step = 1.0/(100 + mk++);
+			//step = 1.0/(4000 + mk++);
+			step = 1.0/2000;
 		else
 			step = mStep->stepOut(mk++);
 		//
@@ -77,6 +78,7 @@ namespace ADP
 		SymmetricMatrix error(SymmetricMatrix(vecH)+*mQ-T(mK)* *mR *mK);
 		mP = mP + step * error;
 		ADP::disp(error);
+		ADP::disp(mP);
 
 		if(norm(mP) > mbound || !(mP>0))
 		{
