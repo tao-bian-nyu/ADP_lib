@@ -48,7 +48,6 @@ A simple demo is provided in
 ```c++
 main.cpp
 ```
-An application of ADPlib in computer games can be found at: https://github.com/lyokka/ADP_lib/tree/master/ADPgame
 
 #### Instruction for \*nix systems:
 ```bash
