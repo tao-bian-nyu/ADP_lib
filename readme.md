@@ -42,6 +42,9 @@ MatrixCalc.h
 Dynamical.h
 ```
 
+
+![Library flow chart](ADP_lib.pdf){width=65%}
+
 How to use:
 -----------------
 A simple demo is provided in
